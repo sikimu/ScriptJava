@@ -1,9 +1,11 @@
 package jp.co.scriptjava;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import jp.co.scriptjava.lexical.Lexical;
+import jp.co.scriptjava.lexical.LexicalStructure;
 
 public class App {
 

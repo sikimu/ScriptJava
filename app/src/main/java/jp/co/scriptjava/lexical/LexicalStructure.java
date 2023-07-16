@@ -71,19 +71,55 @@ public class LexicalStructure {
     //　字句の終了位置を返す
     private static int nextTokenEndIndex(String source, final int index) {
         
-        // 終了文字一覧を文字の降順にソートしたリストの作成
-        ArrayList<String> endStrings = new ArrayList<String>();
-        endStrings.addAll(SEPARATORS);
-        endStrings.addAll(LINE_TERMINATORS);
-        endStrings.addAll(WHITE_SPACE);
-        endStrings.sort((a, b) -> b.length() - a.length());
+        //開始文字がStringLiteralの場合
+        if (source.startsWith("\"", index)) {
+            int cnt = 1;
+            while (index + cnt < source.length()) {
+                if (source.startsWith("\\", index + cnt - 1) == false && source.startsWith("\"", index + cnt)) {
+                    break;
+                }
+                else {
+                    cnt++;
+                }
+            }
+            return index + cnt + 1;
+        }
 
-        for (String str : endStrings) {
+        //開始文字がCharacterLiteralの場合
+        if (source.startsWith("'", index)) {
+            int cnt = 1;
+            while (index + cnt < source.length()) {
+                if (source.startsWith("\\", index + cnt - 1) == false && source.startsWith("'", index + cnt)) {
+                    break;
+                }
+                else {
+                    cnt++;
+                }
+            }
+            return index + cnt + 1;
+        }
+
+        // 単語として認識される文字列のリスト
+        ArrayList<String> tokenString = new ArrayList<String>();
+        tokenString.addAll(SEPARATORS);
+        tokenString.sort((a, b) -> b.length() - a.length());
+
+        for (String str : tokenString) {
             if (source.startsWith(str, index)) {
                 return index + str.length();
             }
-        }        
+        }   
         
+        // 終了文字一覧を文字の降順にソートしたリストの作成
+        ArrayList<String> endStrings = new ArrayList<String>();
+        endStrings.addAll(tokenString);
+        endStrings.addAll(LINE_TERMINATORS);
+        endStrings.addAll(WHITE_SPACE);
+        endStrings.add("\"");
+        endStrings.add("'");
+        endStrings.sort((a, b) -> b.length() - a.length());
+        
+        //識別子
         int cnt = 0;
         while (index + cnt < source.length()) {
 

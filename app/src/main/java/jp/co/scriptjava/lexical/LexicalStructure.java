@@ -72,24 +72,12 @@ public class LexicalStructure {
     private static int nextTokenEndIndex(String source, final int index) {
         
         //開始文字がStringLiteralの場合
-        if (source.startsWith("\"", index)) {
-            int cnt = 1;
-            while (index + cnt < source.length()) {
-                if (source.startsWith("\\", index + cnt - 1) == false && source.startsWith("\"", index + cnt)) {
-                    break;
-                }
-                else {
-                    cnt++;
-                }
-            }
-            return index + cnt + 1;
-        }
-
         //開始文字がCharacterLiteralの場合
-        if (source.startsWith("'", index)) {
+        if (source.startsWith("\"", index) || source.startsWith("'", index)) {
             int cnt = 1;
+            String start = source.substring(index, index + 1);
             while (index + cnt < source.length()) {
-                if (source.startsWith("\\", index + cnt - 1) == false && source.startsWith("'", index + cnt)) {
+                if (source.startsWith("\\", index + cnt - 1) == false && source.startsWith(start, index + cnt)) {
                     break;
                 }
                 else {

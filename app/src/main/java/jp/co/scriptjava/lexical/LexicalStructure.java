@@ -9,12 +9,12 @@ public class LexicalStructure {
     /**
      * 改行文字
      */
-    public static final List<Character> LINE_TERMINATORS = Arrays.asList('\n', '\r');
+    public static final List<String> LINE_TERMINATORS = Arrays.asList("\n", "\r");
 
     /**
      * 空白文字
      */
-    public static final List<Character> WHITE_SPACE = Arrays.asList(' ', '\t');
+    public static final List<String> WHITE_SPACE = Arrays.asList(" ", "\t");
 
     /**
      * 区切り文字
@@ -51,16 +51,21 @@ public class LexicalStructure {
     }
 
     // 次の字句の開始位置を返す
-    private static int nextTokenIndex(String source, int index) {
+    private static int nextTokenIndex(String source, final int index) {
+
+        int cnt = 0;
         while (index < source.length()) {
-            char c = source.charAt(index);
-            if (LINE_TERMINATORS.contains(c) || WHITE_SPACE.contains(c)) {
-                index++;
+
+            final int pos = index + cnt;
+
+            if (LINE_TERMINATORS.stream().anyMatch(str -> source.startsWith(str, pos)) || 
+                WHITE_SPACE.stream().anyMatch(str -> source.startsWith(str, pos))) {
+                cnt++;
             } else {
                 break;
             }
         }
-        return index;
+        return index + cnt;
     }
 
     //　字句の終了位置を返す
@@ -69,6 +74,8 @@ public class LexicalStructure {
         // 終了文字一覧を文字の降順にソートしたリストの作成
         ArrayList<String> endStrings = new ArrayList<String>();
         endStrings.addAll(SEPARATORS);
+        endStrings.addAll(LINE_TERMINATORS);
+        endStrings.addAll(WHITE_SPACE);
         endStrings.sort((a, b) -> b.length() - a.length());
 
         for (String str : endStrings) {
@@ -82,12 +89,7 @@ public class LexicalStructure {
 
             final int pos = index + cnt;
 
-            char c = source.charAt(pos);
-            if (LINE_TERMINATORS.contains(c) || WHITE_SPACE.contains(c)) {
-                break;
-            } 
-            //文字数の昇順で判定
-            else if (endStrings.stream().anyMatch(str -> source.startsWith(str, pos))) {
+            if (endStrings.stream().anyMatch(str -> source.startsWith(str, pos))) {
                 break;
             }
             else {

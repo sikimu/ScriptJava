@@ -31,6 +31,13 @@ public class App {
                 lexicalList.add(LexicalStructure.structure(source));
             }
 
+            // 字句リストを出力する
+            for (List<Lexical> lexicals : lexicalList) {
+                for (Lexical lexical : lexicals) {
+                    System.out.println(lexical);
+                }
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

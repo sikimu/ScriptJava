@@ -19,15 +19,26 @@ public class LexicalStructure {
     /**
      * 区切り文字
      */
-    public static final List<String> SEPARATORS = Arrays.asList("(", ")", "{", "}", "[", "]", ".", ";", ",", "...", "::", "@");
+    public static final List<String> SEPARATORS = Arrays.asList("(", ")", "{", "}", "[", "]", ".", ";", ",", "...",
+            "::", "@");
+
+    /**
+     * 演算子
+     */
+    public static final List<String> OPERATORS = Arrays.asList(
+            "=", ">", "<", "!", "~", "?", ":", "->",
+            "==", ">=", "<=", "!=", "&&", "||", "++", "--",
+            "+", "-", "*", "/", "&", "|", "^", "%", "<<", ">>", ">>>",
+            "+=", "-=", "*=,", "/=", "&=", "|=", "^=", "%=", "<<=", ">>=", ">>>=");
 
     /**
      * ソースを字句リストに変換する
+     * 
      * @param source
      * @return
      */
     public static List<Lexical> structure(String source) {
-        
+
         List<Lexical> lexicals = new ArrayList<Lexical>();
 
         // 最初の文字までの空白と改行を飛ばす
@@ -58,8 +69,8 @@ public class LexicalStructure {
 
             final int pos = index + cnt;
 
-            if (LINE_TERMINATORS.stream().anyMatch(str -> source.startsWith(str, pos)) || 
-                WHITE_SPACE.stream().anyMatch(str -> source.startsWith(str, pos))) {
+            if (LINE_TERMINATORS.stream().anyMatch(str -> source.startsWith(str, pos)) ||
+                    WHITE_SPACE.stream().anyMatch(str -> source.startsWith(str, pos))) {
                 cnt++;
             } else {
                 break;
@@ -68,21 +79,24 @@ public class LexicalStructure {
         return index + cnt;
     }
 
-    //　字句の終了位置を返す
+    // 字句の終了位置を返す
     private static int nextTokenEndIndex(String source, final int index) {
-        
-        //コメントの場合
+
+        // コメントの場合
         if (source.startsWith("//", index)) {
             int cnt = 2;
             while (index + cnt < source.length()) {
-                if (source.startsWith("\n", index + cnt) || source.startsWith("\r", index + cnt)) {
+
+                final int pos = index + cnt;
+
+                if (LINE_TERMINATORS.stream().anyMatch(str -> source.startsWith(str, pos))) {
                     break;
                 }
                 cnt++;
             }
             return index + cnt;
         }
-        //複数行コメントの場合
+        // 複数行コメントの場合
         if (source.startsWith("/*", index)) {
             int cnt = 2;
             while (index + cnt < source.length()) {
@@ -95,16 +109,15 @@ public class LexicalStructure {
             return index + cnt;
         }
 
-        //開始文字がStringLiteralの場合
-        //開始文字がCharacterLiteralの場合
+        // 開始文字がStringLiteralの場合
+        // 開始文字がCharacterLiteralの場合
         if (source.startsWith("\"", index) || source.startsWith("'", index)) {
             String start = source.substring(index, index + 1);
             int cnt = 1;
             while (index + cnt < source.length()) {
                 if (source.startsWith("\\", index + cnt)) {
                     cnt++;
-                }
-                else if (source.startsWith(start, index + cnt)) {
+                } else if (source.startsWith(start, index + cnt)) {
                     cnt++;
                     break;
                 }
@@ -116,14 +129,15 @@ public class LexicalStructure {
         // 単語として認識される文字列のリスト
         ArrayList<String> tokenString = new ArrayList<String>();
         tokenString.addAll(SEPARATORS);
+        tokenString.addAll(OPERATORS);
         tokenString.sort((a, b) -> b.length() - a.length());
 
         for (String str : tokenString) {
             if (source.startsWith(str, index)) {
                 return index + str.length();
             }
-        }   
-        
+        }
+
         // 終了文字一覧を文字の降順にソートしたリストの作成
         ArrayList<String> endStrings = new ArrayList<String>();
         endStrings.addAll(tokenString);
@@ -132,8 +146,8 @@ public class LexicalStructure {
         endStrings.add("\"");
         endStrings.add("'");
         endStrings.sort((a, b) -> b.length() - a.length());
-        
-        //識別子
+
+        // 識別子
         int cnt = 0;
         while (index + cnt < source.length()) {
 
@@ -141,8 +155,7 @@ public class LexicalStructure {
 
             if (endStrings.stream().anyMatch(str -> source.startsWith(str, pos))) {
                 break;
-            }
-            else {
+            } else {
                 cnt++;
             }
         }

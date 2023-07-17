@@ -71,6 +71,30 @@ public class LexicalStructure {
     //　字句の終了位置を返す
     private static int nextTokenEndIndex(String source, final int index) {
         
+        //コメントの場合
+        if (source.startsWith("//", index)) {
+            int cnt = 2;
+            while (index + cnt < source.length()) {
+                if (source.startsWith("\n", index + cnt) || source.startsWith("\r", index + cnt)) {
+                    break;
+                }
+                cnt++;
+            }
+            return index + cnt;
+        }
+        //複数行コメントの場合
+        if (source.startsWith("/*", index)) {
+            int cnt = 2;
+            while (index + cnt < source.length()) {
+                if (source.startsWith("*/", index + cnt)) {
+                    cnt += 2;
+                    break;
+                }
+                cnt++;
+            }
+            return index + cnt;
+        }
+
         //開始文字がStringLiteralの場合
         //開始文字がCharacterLiteralの場合
         if (source.startsWith("\"", index) || source.startsWith("'", index)) {

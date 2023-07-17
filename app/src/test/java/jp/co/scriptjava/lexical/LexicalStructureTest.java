@@ -58,11 +58,6 @@ public class LexicalStructureTest {
         assertEquals(".", list.get(3).toString());
     }
 
-    @Test
-    void 文字列が含まれている() {
-
-    }
-
     @ParameterizedTest
     @MethodSource("文字列が含まれているパラメータ")
     void 文字や文字列が含まれている(String source, String expected) {
@@ -84,5 +79,33 @@ public class LexicalStructureTest {
                 Arguments.of("aaa '\\'' bbb", "'\\''"),
                 Arguments.of("aaa '\\\\' bbb", "'\\\\'")
             );
+    }
+
+    @Test
+    void コメントが含まれている最後まで() {
+        String source = "aaa // bbb";
+        List<Lexical> list = LexicalStructure.structure(source);
+        assertEquals("// bbb", list.get(1).toString());
+    }
+
+    @Test
+    void コメントが含まれている改行まで() {
+        String source = "aaa // bbb\nccc";
+        List<Lexical> list = LexicalStructure.structure(source);
+        assertEquals("// bbb", list.get(1).toString());
+    }    
+
+    @Test
+    void 複数行コメントが含まれている最後まで() {
+        String source = "aaa /* bbb */";
+        List<Lexical> list = LexicalStructure.structure(source);
+        assertEquals("/* bbb */", list.get(1).toString());
+    }
+
+    @Test
+    void 複数行コメントが含まれている改行こみ() {
+        String source = "aaa /* bbb\nccc */ccc";
+        List<Lexical> list = LexicalStructure.structure(source);
+        assertEquals("/* bbb\nccc */", list.get(1).toString());
     }
 }

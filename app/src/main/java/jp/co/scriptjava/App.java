@@ -6,6 +6,8 @@ import java.util.List;
 
 import jp.co.scriptjava.lexical.Lexical;
 import jp.co.scriptjava.lexical.LexicalStructure;
+import jp.co.scriptjava.statement.Statement;
+import jp.co.scriptjava.statement.StatementStructure;
 
 public class App {
 
@@ -31,10 +33,16 @@ public class App {
                 lexicalList.add(LexicalStructure.structure(source));
             }
 
-            // 字句リストを出力する
+            // ステートメントリストに変換する
+            List<List<Statement>> statementList = new ArrayList<List<Statement>>();
             for (List<Lexical> lexicals : lexicalList) {
-                for (Lexical lexical : lexicals) {
-                    System.out.println(lexical);
+                statementList.add(StatementStructure.structure(lexicals));
+            }
+
+            // ステートメントを出力する
+            for (List<Statement> statements : statementList) {
+                for (Statement statement : statements) {
+                    System.out.println(statement);
                 }
             }
 

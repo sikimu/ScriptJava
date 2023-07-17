@@ -58,7 +58,7 @@ public class LexicalStructure {
 
     // 字句を作成する
     private static Lexical createLexical(String str) {
-        return new Identifier(str);
+        return new Lexical(Lexical.TYPE.IDENTIFIER, str);
     }
 
     // 次の字句の開始位置を返す

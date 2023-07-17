@@ -7,15 +7,14 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import jp.co.scriptjava.lexical.Identifier;
 import jp.co.scriptjava.lexical.Lexical;
 
 public class StatementStructureTest {
     @Test
     void 識別子とセミコロン() {
         List<Lexical> lexicalList = new ArrayList<Lexical>();
-        lexicalList.add(new Identifier("a"));
-        lexicalList.add(new Identifier(";"));
+        lexicalList.add(new Lexical(Lexical.TYPE.IDENTIFIER, "a"));
+        lexicalList.add(new Lexical(Lexical.TYPE.IDENTIFIER, ";"));
         
         List<Statement> statementList = StatementStructure.structure(lexicalList);
 

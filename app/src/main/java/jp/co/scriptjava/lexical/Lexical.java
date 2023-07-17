@@ -1,5 +1,23 @@
 package jp.co.scriptjava.lexical;
 
-public abstract class Lexical {
+public class Lexical {
 
+    public enum TYPE {
+        IDENTIFIER,
+        SEMICOLON,
+    }
+
+    public final TYPE type;
+
+    public final String value;
+
+    public Lexical(TYPE type, String value) {
+        this.type = type;
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }

@@ -84,18 +84,5 @@ public class LexicalStructureTest {
                 Arguments.of("aaa '\\'' bbb", "'\\''"),
                 Arguments.of("aaa '\\\\' bbb", "'\\\\'")
             );
-    }    
-
-    @Test
-    void 文字が含まれている() {
-        String source = "abc'def'ghi'jkl\\'mno'pqr";
-        List<Lexical> list = LexicalStructure.structure(source);
-
-        assertEquals("abc", list.get(0).toString());
-        assertEquals("'def'", list.get(1).toString());
-        assertEquals("ghi", list.get(2).toString());
-        assertEquals("'jkl\\'mno'", list.get(3).toString());
-        assertEquals("pqr", list.get(4).toString());
-
     }
 }

@@ -74,17 +74,19 @@ public class LexicalStructure {
         //開始文字がStringLiteralの場合
         //開始文字がCharacterLiteralの場合
         if (source.startsWith("\"", index) || source.startsWith("'", index)) {
-            int cnt = 1;
             String start = source.substring(index, index + 1);
+            int cnt = 1;
             while (index + cnt < source.length()) {
-                if (source.startsWith("\\", index + cnt - 1) == false && source.startsWith(start, index + cnt)) {
-                    break;
-                }
-                else {
+                if (source.startsWith("\\", index + cnt)) {
                     cnt++;
                 }
+                else if (source.startsWith(start, index + cnt)) {
+                    cnt++;
+                    break;
+                }
+                cnt++;
             }
-            return index + cnt + 1;
+            return index + cnt;
         }
 
         // 単語として認識される文字列のリスト

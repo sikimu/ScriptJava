@@ -3,7 +3,7 @@ package jp.co.scriptjava.lexical;
 /**
  * 識別子
  */
-public class Identifier implements Lexical{
+public class Identifier extends Lexical{
     
     final String name;
 

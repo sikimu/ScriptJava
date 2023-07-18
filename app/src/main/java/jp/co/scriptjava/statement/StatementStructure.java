@@ -24,6 +24,10 @@ public class StatementStructure {
             // ステートメントの最後の字句のインデックスを取得する
             int end = nextStatementEndIndex(lexicalList, index);
 
+            if(end == lexicalList.size()) {
+                break;
+            }
+
             List<Lexical> list = lexicalList.subList(index, end);
 
             // ステートメントを作成する
@@ -40,16 +44,31 @@ public class StatementStructure {
 
     private static int nextStatementEndIndex(List<Lexical> lexicalList, int index) {
 
+        // {}括弧の場合それだけのステートメント
+        if(lexicalList.get(index).type == Lexical.TYPE.SEPARATOR) {
+            if(lexicalList.get(index).value.equals("{") || lexicalList.get(index).value.equals("}")) {            
+                return index + 1;
+            }
+        }
+
         int end = index;
         while(end < lexicalList.size()) {
             Lexical lexical = lexicalList.get(end);
-            if(lexical.toString().equals(";")) {
+            //{}は次のステートメントにする
+            if(lexical.type == Lexical.TYPE.SEPARATOR) {
+                if(lexical.value.equals("{") || lexical.value.equals("}")) {            
+                    break;
+                }
+            }
+            // ;はステートメントの終わり
+            if(lexical.type == Lexical.TYPE.SEPARATOR && lexical.value.equals(";")) {
+                end++;
                 break;
             }
             end++;
         }
 
-        return end + 1;
+        return end;
     }
 
     private static Statement createStatement(List<Lexical> lexicalList) {

@@ -14,7 +14,8 @@ public class StatementStructureTest {
     void 識別子とセミコロン() {
         List<Lexical> lexicalList = new ArrayList<Lexical>();
         lexicalList.add(new Lexical(Lexical.TYPE.IDENTIFIER, "a"));
-        lexicalList.add(new Lexical(Lexical.TYPE.IDENTIFIER, ";"));
+        lexicalList.add(new Lexical(Lexical.TYPE.SEPARATOR, ";"));
+        lexicalList.add(new Lexical(Lexical.TYPE.IDENTIFIER, "b"));
         
         List<Statement> statementList = StatementStructure.structure(lexicalList);
 

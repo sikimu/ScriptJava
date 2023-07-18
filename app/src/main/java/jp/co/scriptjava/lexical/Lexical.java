@@ -4,7 +4,9 @@ public class Lexical {
 
     public enum TYPE {
         IDENTIFIER,
-        SEMICOLON,
+        SEPARATOR,
+        OPERATOR,
+        COMMENT,
     }
 
     public final TYPE type;

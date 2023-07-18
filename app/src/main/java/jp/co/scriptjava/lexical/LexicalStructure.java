@@ -58,6 +58,15 @@ public class LexicalStructure {
 
     // 字句を作成する
     private static Lexical createLexical(String str) {
+        if(SEPARATORS.contains(str)) {
+            return new Lexical(Lexical.TYPE.SEPARATOR, str);
+        }
+        if(OPERATORS.contains(str)) {
+            return new Lexical(Lexical.TYPE.OPERATOR, str);
+        }
+        if(str.startsWith("//") || str.startsWith("/*")) {
+            return new Lexical(Lexical.TYPE.COMMENT, str);
+        }
         return new Lexical(Lexical.TYPE.IDENTIFIER, str);
     }
 

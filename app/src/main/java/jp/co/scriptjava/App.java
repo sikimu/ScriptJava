@@ -33,6 +33,12 @@ public class App {
                 lexicalList.add(LexicalStructure.structure(source));
             }
 
+            // コメントマップを作成する
+            List<CommentMap> commentMaps = new ArrayList<CommentMap>();
+            for (List<Lexical> lexicals : lexicalList) {
+                commentMaps.add(new CommentMap(lexicals));
+            }
+
             // ステートメントリストに変換する
             List<List<Statement>> statementList = new ArrayList<List<Statement>>();
             for (List<Lexical> lexicals : lexicalList) {
@@ -44,6 +50,11 @@ public class App {
                 for (Statement statement : statements) {
                     System.out.println(statement);
                 }
+            }
+
+            // コメントマップを出力する
+            for (CommentMap commentMap : commentMaps) {
+                System.out.println(commentMap);
             }
 
         } catch (Exception e) {

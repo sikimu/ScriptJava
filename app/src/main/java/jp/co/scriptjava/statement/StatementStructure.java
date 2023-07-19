@@ -15,7 +15,41 @@ public class StatementStructure {
      */
     public static List<Statement> structure(List<Lexical> lexicalList) {
 
+        return createStatementList(splitStatement(lexicalList));
+    }
+
+    private static List<Statement> createStatementList(List<List<Lexical>> lexicalBlockList) {
+
         List<Statement> statementList = new ArrayList<Statement>();
+
+        // ステートメントの最初の字句のインデックス
+        int index = 0;
+        while(index < lexicalBlockList.size()) {
+                
+                List<Lexical> lexicalList = lexicalBlockList.get(index);
+    
+                // ステートメントを作成する
+                Statement statement = createStatement(lexicalList);
+                // ステートメントを追加する
+                statementList.add(statement);
+    
+                index++;
+        }
+
+        return statementList;
+    }
+
+    private static Statement createStatement(List<Lexical> lexicalList) {
+
+        return new Statement(lexicalList);
+    }
+
+    /**
+     * ステートメント単位に分割する
+     */
+    private static List<List<Lexical>> splitStatement(List<Lexical> lexicalList) {
+
+        List<List<Lexical>> list = new ArrayList<List<Lexical>>();
 
         // ステートメントの最初の字句のインデックス
         int index = 0;
@@ -28,18 +62,14 @@ public class StatementStructure {
                 break;
             }
 
-            List<Lexical> list = lexicalList.subList(index, end);
-
-            // ステートメントを作成する
-            Statement statement = createStatement(list);
-            // ステートメントを追加する
-            statementList.add(statement);
+            List<Lexical> l = lexicalList.subList(index, end);
+            list.add(l);
 
             // ステートメントの最後の字句のインデックスを次のステートメントの最初の字句のインデックスにする
             index = end;
         }
 
-        return statementList;
+        return list;
     }
 
     private static int nextStatementEndIndex(List<Lexical> lexicalList, int index) {
@@ -69,10 +99,5 @@ public class StatementStructure {
         }
 
         return end;
-    }
-
-    private static Statement createStatement(List<Lexical> lexicalList) {
-
-        return new Statement(lexicalList);
     }  
 }

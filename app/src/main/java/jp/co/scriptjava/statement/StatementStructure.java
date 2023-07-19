@@ -40,7 +40,11 @@ public class StatementStructure {
 
     private static Statement createStatement(List<Lexical> lexicalList) {
 
-        return new Statement(lexicalList);
+        // import文
+        if (lexicalList.get(0).value.equals("import")) {
+            return new ImportStatement(lexicalList);
+        }
+        return new unknownStatement(lexicalList);
     }
 
     /**

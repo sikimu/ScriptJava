@@ -5,7 +5,6 @@ import java.util.List;
 
 import jp.co.scriptjava.lexical.Lexical;
 
-
 public class StatementStructure {
     /**
      * 字句リストからステートメントリストに変換する
@@ -24,16 +23,16 @@ public class StatementStructure {
 
         // ステートメントの最初の字句のインデックス
         int index = 0;
-        while(index < lexicalBlockList.size()) {
-                
-                List<Lexical> lexicalList = lexicalBlockList.get(index);
-    
-                // ステートメントを作成する
-                Statement statement = createStatement(lexicalList);
-                // ステートメントを追加する
-                statementList.add(statement);
-    
-                index++;
+        while (index < lexicalBlockList.size()) {
+
+            List<Lexical> lexicalList = lexicalBlockList.get(index);
+
+            // ステートメントを作成する
+            Statement statement = createStatement(lexicalList);
+            // ステートメントを追加する
+            statementList.add(statement);
+
+            index++;
         }
 
         return statementList;
@@ -53,12 +52,12 @@ public class StatementStructure {
 
         // ステートメントの最初の字句のインデックス
         int index = 0;
-        while(index < lexicalList.size()) {
+        while (index < lexicalList.size()) {
 
             // ステートメントの最後の字句のインデックスを取得する
             int end = nextStatementEndIndex(lexicalList, index);
 
-            if(end == lexicalList.size()) {
+            if (end == lexicalList.size()) {
                 break;
             }
 
@@ -75,23 +74,23 @@ public class StatementStructure {
     private static int nextStatementEndIndex(List<Lexical> lexicalList, int index) {
 
         // {}括弧の場合それだけのステートメント
-        if(lexicalList.get(index).type == Lexical.TYPE.SEPARATOR) {
-            if(lexicalList.get(index).value.equals("{") || lexicalList.get(index).value.equals("}")) {            
+        if (lexicalList.get(index).type == Lexical.TYPE.SEPARATOR) {
+            if (lexicalList.get(index).value.equals("{") || lexicalList.get(index).value.equals("}")) {
                 return index + 1;
             }
         }
 
         int end = index;
-        while(end < lexicalList.size()) {
+        while (end < lexicalList.size()) {
             Lexical lexical = lexicalList.get(end);
-            //{}は次のステートメントにする
-            if(lexical.type == Lexical.TYPE.SEPARATOR) {
-                if(lexical.value.equals("{") || lexical.value.equals("}")) {            
+            // {}は次のステートメントにする
+            if (lexical.type == Lexical.TYPE.SEPARATOR) {
+                if (lexical.value.equals("{") || lexical.value.equals("}")) {
                     break;
                 }
             }
             // ;はステートメントの終わり
-            if(lexical.type == Lexical.TYPE.SEPARATOR && lexical.value.equals(";")) {
+            if (lexical.type == Lexical.TYPE.SEPARATOR && lexical.value.equals(";")) {
                 end++;
                 break;
             }
@@ -99,5 +98,5 @@ public class StatementStructure {
         }
 
         return end;
-    }  
+    }
 }

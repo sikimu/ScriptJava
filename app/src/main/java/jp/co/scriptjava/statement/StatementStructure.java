@@ -72,6 +72,10 @@ public class StatementStructure {
         if (lexicalList.get(0).value.equals("import")) {
             return new ImportStatement(lexicalList);
         }
+        // package文
+        if (lexicalList.get(0).value.equals("package")) {
+            return new PackageStatement(lexicalList);
+        }
         return new unknownStatement(lexicalList);
     }
 

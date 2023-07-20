@@ -21,4 +21,16 @@ public class StatementStructureTest {
 
         assertEquals("a;", statementList.get(0).toString());
     }
+
+    @Test
+    void コメントは除去される() {
+        List<Lexical> lexicalList = new ArrayList<Lexical>();
+        lexicalList.add(new Lexical(Lexical.TYPE.IDENTIFIER, "a"));
+        lexicalList.add(new Lexical(Lexical.TYPE.COMMENT, "/* comment */"));
+        lexicalList.add(new Lexical(Lexical.TYPE.IDENTIFIER, "b"));
+        
+        List<Statement> statementList = StatementStructure.structure(lexicalList);
+
+        assertEquals("ab", statementList.get(0).toString());
+    }
 }

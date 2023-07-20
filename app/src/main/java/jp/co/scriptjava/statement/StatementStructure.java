@@ -14,7 +14,35 @@ public class StatementStructure {
      */
     public static List<Statement> structure(List<Lexical> lexicalList) {
 
-        return createStatementList(splitStatement(lexicalList));
+        // コメント以外をステートメントリストに変換する
+        List<Lexical> list = removeComment(lexicalList);
+
+        // ステートメント単位に分割する
+        List<List<Lexical>> lexicalBlockList = splitStatement(list);
+
+        // ステートメントリストを作成する
+        List<Statement> statementList = createStatementList(lexicalBlockList);
+
+        return statementList;
+    }
+
+    /**
+     * コメント以外をステートメントリストに変換する
+     * 
+     * @param lexicalList
+     * @return
+     */
+    private static List<Lexical> removeComment(List<Lexical> lexicalList) {
+
+        List<Lexical> list = new ArrayList<Lexical>();
+
+        for (Lexical lexical : lexicalList) {
+            if (lexical.type != Lexical.TYPE.COMMENT) {
+                list.add(lexical);
+            }
+        }
+
+        return list;
     }
 
     private static List<Statement> createStatementList(List<List<Lexical>> lexicalBlockList) {
@@ -60,10 +88,6 @@ public class StatementStructure {
 
             // ステートメントの最後の字句のインデックスを取得する
             int end = nextStatementEndIndex(lexicalList, index);
-
-            if (end == lexicalList.size()) {
-                break;
-            }
 
             List<Lexical> l = lexicalList.subList(index, end);
             list.add(l);

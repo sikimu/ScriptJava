@@ -1,8 +1,5 @@
 package jp.co.scriptjava.statement;
 
-import java.util.List;
-
-import jp.co.scriptjava.lexical.Lexical;
 import jp.co.scriptjava.lexical.LexicalSingleBlock;
 
 public class ImportStatement extends Statement {

@@ -3,7 +3,6 @@ package jp.co.scriptjava.statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.co.scriptjava.lexical.Lexical;
 import jp.co.scriptjava.lexical.LexicalRootBlock;
 import jp.co.scriptjava.lexical.LexicalSingleBlock;
 

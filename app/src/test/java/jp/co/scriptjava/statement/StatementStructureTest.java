@@ -22,6 +22,6 @@ public class StatementStructureTest {
         
         List<Statement> statementList = StatementStructure.structure(block);
 
-        assertEquals("a;", statementList.get(0).toString());
+        assertEquals("[a, ;]", statementList.get(0).toString());
     }
 }

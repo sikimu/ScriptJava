@@ -5,6 +5,7 @@ import java.util.List;
 
 import jp.co.scriptjava.lexical.Lexical;
 import jp.co.scriptjava.lexical.LexicalRootBlock;
+import jp.co.scriptjava.lexical.LexicalSingleBlock;
 
 public class StatementStructure {
     /**
@@ -29,10 +30,8 @@ public class StatementStructure {
         int index = 0;
         while (index < block.children.size()) {
 
-            List<Lexical> lexicalList = block.children.get(index).lexicals;
-
             // ステートメントを作成する
-            Statement statement = createStatement(lexicalList);
+            Statement statement = createStatement(block.children.get(index));
             // ステートメントを追加する
             statementList.add(statement);
 
@@ -42,16 +41,16 @@ public class StatementStructure {
         return statementList;
     }
 
-    private static Statement createStatement(List<Lexical> lexicalList) {
+    private static Statement createStatement(LexicalSingleBlock lexicalSingleBlock) {
 
         // import文
-        if (lexicalList.get(0).value.equals("import")) {
-            return new ImportStatement(lexicalList);
+        if (lexicalSingleBlock.get(0).value.equals("import")) {
+            return new ImportStatement(lexicalSingleBlock);
         }
         // package文
-        if (lexicalList.get(0).value.equals("package")) {
-            return new PackageStatement(lexicalList);
+        if (lexicalSingleBlock.get(0).value.equals("package")) {
+            return new PackageStatement(lexicalSingleBlock);
         }
-        return new unknownStatement(lexicalList);
+        return new unknownStatement(lexicalSingleBlock);
     }
 }

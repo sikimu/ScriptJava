@@ -3,19 +3,20 @@ package jp.co.scriptjava.statement;
 import java.util.List;
 
 import jp.co.scriptjava.lexical.Lexical;
+import jp.co.scriptjava.lexical.LexicalSingleBlock;
 
 public class PackageStatement extends Statement{
 
     final public String packageName;
 
-    public PackageStatement(List<Lexical> lexicalList) {
+    public PackageStatement(LexicalSingleBlock lexicalSingleBlock) {
 
         //package文の構文チェック
-        if (lexicalList.get(0).value.equals("package") == false) {
+        if (lexicalSingleBlock.get(0).value.equals("package") == false) {
             throw new RuntimeException("package文の構文が不正です。");
         }
 
-        packageName = lexicalList.subList(1, lexicalList.size() - 1).stream().map(lexical -> lexical.value).reduce((a, b) -> a + b).get();
+        packageName = lexicalSingleBlock.subList(1, lexicalSingleBlock.size() - 1).stream().map(lexical -> lexical.value).reduce((a, b) -> a + b).get();
     }
 
     @Override

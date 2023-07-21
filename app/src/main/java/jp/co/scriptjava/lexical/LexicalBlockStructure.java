@@ -13,7 +13,7 @@ public class LexicalBlockStructure {
         // コメント以外をステートメントリストに変換する
         List<Lexical> list = removeComment(lexicals);
 
-        List<LexicalBlock> blocks = new ArrayList<LexicalBlock>();
+        List<LexicalSingleBlock> blocks = new ArrayList<LexicalSingleBlock>();
 
         // ステートメントの最初の字句のインデックス
         int index = 0;
@@ -23,7 +23,7 @@ public class LexicalBlockStructure {
             int end = nextStatementEndIndex(list, index);
 
             List<Lexical> l = list.subList(index, end);
-            blocks.add(new LexicalBlock(l, new ArrayList<>()));
+            blocks.add(new LexicalSingleBlock(l));
 
             // ステートメントの最後の字句のインデックスを次のステートメントの最初の字句のインデックスにする
             index = end;

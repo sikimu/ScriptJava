@@ -8,10 +8,10 @@ import java.util.List;
 public class LexicalRootBlock {
     
     /** ブロックリスト */
-    public final List<LexicalBlock> children;
+    public final List<LexicalSingleBlock> children;
     
     /** コンストラクタ */
-    public LexicalRootBlock(List<LexicalBlock> children) {
+    public LexicalRootBlock(List<LexicalSingleBlock> children) {
         this.children = children;
     }
 

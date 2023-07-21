@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.co.scriptjava.lexical.Lexical;
-import jp.co.scriptjava.lexical.LexicalBlock;
 import jp.co.scriptjava.lexical.LexicalBlockStructure;
 import jp.co.scriptjava.lexical.LexicalRootBlock;
 import jp.co.scriptjava.lexical.LexicalStructure;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.co.scriptjava.lexical.Lexical;
-import jp.co.scriptjava.lexical.LexicalBlock;
 import jp.co.scriptjava.lexical.LexicalRootBlock;
 
 public class StatementStructure {

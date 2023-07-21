@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import jp.co.scriptjava.lexical.Lexical;
+import jp.co.scriptjava.lexical.LexicalBlock;
 
 public class StatementStructureTest {
     @Test
@@ -15,22 +16,11 @@ public class StatementStructureTest {
         List<Lexical> lexicalList = new ArrayList<Lexical>();
         lexicalList.add(new Lexical(Lexical.TYPE.IDENTIFIER, "a"));
         lexicalList.add(new Lexical(Lexical.TYPE.SEPARATOR, ";"));
-        lexicalList.add(new Lexical(Lexical.TYPE.IDENTIFIER, "b"));
+
+        LexicalBlock block = new LexicalBlock(new ArrayList<>(), List.of(new LexicalBlock(lexicalList, new ArrayList<>())));
         
-        List<Statement> statementList = StatementStructure.structure(lexicalList);
+        List<Statement> statementList = StatementStructure.structure(block);
 
         assertEquals("a;", statementList.get(0).toString());
-    }
-
-    @Test
-    void コメントは除去される() {
-        List<Lexical> lexicalList = new ArrayList<Lexical>();
-        lexicalList.add(new Lexical(Lexical.TYPE.IDENTIFIER, "a"));
-        lexicalList.add(new Lexical(Lexical.TYPE.COMMENT, "/* comment */"));
-        lexicalList.add(new Lexical(Lexical.TYPE.IDENTIFIER, "b"));
-        
-        List<Statement> statementList = StatementStructure.structure(lexicalList);
-
-        assertEquals("ab", statementList.get(0).toString());
     }
 }

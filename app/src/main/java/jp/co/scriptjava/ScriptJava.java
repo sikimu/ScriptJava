@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.co.scriptjava.lexical.Lexical;
+import jp.co.scriptjava.lexical.LexicalBlock;
+import jp.co.scriptjava.lexical.LexicalBlockStructure;
 import jp.co.scriptjava.lexical.LexicalStructure;
 import jp.co.scriptjava.statement.Statement;
 import jp.co.scriptjava.statement.StatementStructure;
@@ -36,10 +38,16 @@ public class ScriptJava {
                 commentMaps.add(new CommentMap(lexicals));
             }
 
+            // 字句を構造的にブロック化したものを作る
+            List<LexicalBlock> lexicalBlockList = new ArrayList<LexicalBlock>();
+            for (List<Lexical> lexicals : lexicalList) {
+                lexicalBlockList.add(LexicalBlockStructure.structure(lexicals));
+            }
+
             // ステートメントリストに変換する
             List<List<Statement>> statementList = new ArrayList<List<Statement>>();
-            for (List<Lexical> lexicals : lexicalList) {
-                statementList.add(StatementStructure.structure(lexicals));
+            for (LexicalBlock block : lexicalBlockList) {
+                statementList.add(StatementStructure.structure(block));
             }
 
             // ステートメントを出力する

@@ -5,6 +5,7 @@ import java.util.List;
 
 import jp.co.scriptjava.lexical.Lexical;
 import jp.co.scriptjava.lexical.LexicalBlock;
+import jp.co.scriptjava.lexical.LexicalRootBlock;
 
 public class StatementStructure {
     /**
@@ -13,7 +14,7 @@ public class StatementStructure {
      * @param source
      * @return
      */
-    public static List<Statement> structure(LexicalBlock block) {
+    public static List<Statement> structure(LexicalRootBlock block) {
 
         // ステートメントリストを作成する
         List<Statement> statementList = createStatementList(block);
@@ -21,7 +22,7 @@ public class StatementStructure {
         return statementList;
     }
 
-    private static List<Statement> createStatementList(LexicalBlock block) {
+    private static List<Statement> createStatementList(LexicalRootBlock block) {
 
         List<Statement> statementList = new ArrayList<Statement>();
 

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import jp.co.scriptjava.lexical.Lexical;
 import jp.co.scriptjava.lexical.LexicalBlock;
+import jp.co.scriptjava.lexical.LexicalRootBlock;
 
 public class StatementStructureTest {
     @Test
@@ -17,7 +18,7 @@ public class StatementStructureTest {
         lexicalList.add(new Lexical(Lexical.TYPE.IDENTIFIER, "a"));
         lexicalList.add(new Lexical(Lexical.TYPE.SEPARATOR, ";"));
 
-        LexicalBlock block = new LexicalBlock(new ArrayList<>(), List.of(new LexicalBlock(lexicalList, new ArrayList<>())));
+        LexicalRootBlock block = new LexicalRootBlock(List.of(new LexicalBlock(lexicalList, new ArrayList<>())));
         
         List<Statement> statementList = StatementStructure.structure(block);
 

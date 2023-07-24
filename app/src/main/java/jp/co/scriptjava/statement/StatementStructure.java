@@ -3,6 +3,8 @@ package jp.co.scriptjava.statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.co.scriptjava.lexical.LexicalBlock;
+import jp.co.scriptjava.lexical.LexicalMultiBlock;
 import jp.co.scriptjava.lexical.LexicalRootBlock;
 import jp.co.scriptjava.lexical.LexicalSingleBlock;
 
@@ -40,16 +42,23 @@ public class StatementStructure {
         return statementList;
     }
 
-    private static Statement createStatement(LexicalSingleBlock lexicalSingleBlock) {
+    private static Statement createStatement(LexicalBlock lexicalBlock) {
 
-        // import文
-        if (lexicalSingleBlock.get(0).value.equals("import")) {
-            return new ImportStatement(lexicalSingleBlock);
+        if(lexicalBlock instanceof LexicalSingleBlock){
+            LexicalSingleBlock singleBlock = (LexicalSingleBlock)lexicalBlock;
+            // import文
+            if (singleBlock.get(0).value.equals("import")) {
+                return new ImportStatement(singleBlock);
+            }
+            // package文
+            if (singleBlock.get(0).value.equals("package")) {
+                return new PackageStatement(singleBlock);
+            }
+            return new unknownStatement(singleBlock);
         }
-        // package文
-        if (lexicalSingleBlock.get(0).value.equals("package")) {
-            return new PackageStatement(lexicalSingleBlock);
+        else{
+            LexicalMultiBlock multiBlock = (LexicalMultiBlock)lexicalBlock;
+            return createStatement(multiBlock.children.get(0));
         }
-        return new unknownStatement(lexicalSingleBlock);
     }
 }

@@ -32,4 +32,12 @@ public class LexicalSingleBlock extends LexicalBlock{
     public List<Lexical> subList(int i, int j) {
         return lexicals.subList(i, j);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof LexicalSingleBlock){
+            return lexicals.equals(((LexicalSingleBlock)obj).lexicals);
+        }
+        return false;
+    }
 }

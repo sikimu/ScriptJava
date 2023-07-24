@@ -8,10 +8,10 @@ import java.util.List;
 public class LexicalMultiBlock extends LexicalBlock{
  
     /** ブロックリスト */
-    public final List<LexicalSingleBlock> children;
+    public final List<LexicalBlock> children;
     
     /** コンストラクタ */
-    public LexicalMultiBlock(List<LexicalSingleBlock> children) {
+    public LexicalMultiBlock(List<LexicalBlock> children) {
         this.children = children;
     }
 }

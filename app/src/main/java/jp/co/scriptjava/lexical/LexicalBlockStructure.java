@@ -3,38 +3,103 @@ package jp.co.scriptjava.lexical;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * 字句を構造的にブロック化したものを作る
  */
 public class LexicalBlockStructure {
 
-    public static LexicalRootBlock structure(List<Lexical> lexicals){
+    public static LexicalRootBlock structure(List<Lexical> list){
 
         // コメント以外をステートメントリストに変換する
-        List<Lexical> list = removeComment(lexicals);
+        List<Lexical> lexicals = removeComment(list);
 
-        List<LexicalSingleBlock> blocks = new ArrayList<LexicalSingleBlock>();
+        // ブロックを作る
+        List<LexicalBlock> blocks = structure(lexicals, 0);
 
-        // ステートメントの最初の字句のインデックス
-        int index = 0;
-        while (index < list.size()) {
+        return new LexicalRootBlock(blocks); 
+    }
 
-            // ステートメントの最後の字句のインデックスを取得する
-            int end = nextStatementEndIndex(list, index);
+    // ブロックを作る
+    private static List<LexicalBlock> structure(List<Lexical> lexicals, int index) {
+        List<LexicalBlock> blocks = new ArrayList<LexicalBlock>();
 
-            List<Lexical> l = list.subList(index, end);
-            blocks.add(new LexicalSingleBlock(l));
+        while(index < lexicals.size()){
+            Lexical lexical = lexicals.get(index);
 
-            // ステートメントの最後の字句のインデックスを次のステートメントの最初の字句のインデックスにする
-            index = end;
+            if(lexical.value.equals("{")){
+                int end = findBrace(lexicals, index);
+
+                if (end == -1) {
+                    // }がない場合は、最後までをブロック化する
+                    blocks.add(new LexicalSingleBlock(lexicals.subList(index, lexicals.size())));
+                    break;
+                } else {
+                    // }がある場合は、}までをブロック化する
+                    blocks.add(new LexicalMultiBlock(structure(lexicals.subList(index + 1, end), 0)));
+                    index = end + 1;
+                }
+            }
+            else{
+                int end = findSemicolonOrBrace(lexicals, index);
+
+                if (end == -1) {
+                    // セミコロンがない場合は、最後までをブロック化する
+                    blocks.add(new LexicalSingleBlock(lexicals.subList(index, lexicals.size())));
+                    break;
+                } else {
+                    // セミコロンがある場合は、セミコロンまでをブロック化する
+                    blocks.add(new LexicalSingleBlock(lexicals.subList(index, end + 1)));
+                    index = end + 1;
+                }
+            }
         }
 
-        LexicalRootBlock lexicalBlock = new LexicalRootBlock(blocks);        
-        return lexicalBlock;
+        return blocks;
+    }
+
+    // }までを探す
+    private static int findBrace(List<Lexical> lexicals, int index) {
+
+        int count = 0;
+
+        for (int i = index; i < lexicals.size(); i++) {
+            Lexical lexical = lexicals.get(i);
+            if (lexical.value.equals("{")) {
+                count++;
+            }
+            if (lexical.value.equals("}")) {
+                count--;
+                if(count == 0){
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     /**
-     * コメント以外をステートメントリストに変換する
+     * セミコロンか括弧を探す
+     * @param lexicals
+     * @param index
+     * @return
+     */
+    private static int findSemicolonOrBrace(List<Lexical> lexicals, int index) {
+        for (int i = index; i < lexicals.size(); i++) {
+            Lexical lexical = lexicals.get(i);
+            if (lexical.value.equals(";")) {
+                return i;
+            }
+            if (lexical.value.equals("{")) {
+                return i - 1;// 括弧は含めいない
+            }
+        }
+        return -1;
+    }
+
+
+    /**
+     * コメントを除外する
      * 
      * @param lexicalList
      * @return
@@ -50,34 +115,5 @@ public class LexicalBlockStructure {
         }
 
         return list;
-    }    
-
-    private static int nextStatementEndIndex(List<Lexical> lexicalList, int index) {
-
-        // {}括弧の場合それだけのステートメント
-        if (lexicalList.get(index).type == Lexical.TYPE.SEPARATOR) {
-            if (lexicalList.get(index).value.equals("{") || lexicalList.get(index).value.equals("}")) {
-                return index + 1;
-            }
-        }
-
-        int end = index;
-        while (end < lexicalList.size()) {
-            Lexical lexical = lexicalList.get(end);
-            // {}は次のステートメントにする
-            if (lexical.type == Lexical.TYPE.SEPARATOR) {
-                if (lexical.value.equals("{") || lexical.value.equals("}")) {
-                    break;
-                }
-            }
-            // ;はステートメントの終わり
-            if (lexical.type == Lexical.TYPE.SEPARATOR && lexical.value.equals(";")) {
-                end++;
-                break;
-            }
-            end++;
-        }
-
-        return end;
-    }    
+    } 
 }

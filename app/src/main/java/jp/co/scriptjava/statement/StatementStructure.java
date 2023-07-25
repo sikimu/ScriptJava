@@ -3,9 +3,9 @@ package jp.co.scriptjava.statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.co.scriptjava.lexical.Lexical;
 import jp.co.scriptjava.lexical.LexicalBlock;
 import jp.co.scriptjava.lexical.LexicalMultiBlock;
-import jp.co.scriptjava.lexical.LexicalRootBlock;
 import jp.co.scriptjava.lexical.LexicalSingleBlock;
 
 public class StatementStructure {
@@ -15,7 +15,7 @@ public class StatementStructure {
      * @param source
      * @return
      */
-    public static List<Statement> structure(LexicalRootBlock block) {
+    public static List<Statement> structure(LexicalMultiBlock block) {
 
         // ステートメントリストを作成する
         List<Statement> statementList = createStatementList(block);
@@ -23,7 +23,7 @@ public class StatementStructure {
         return statementList;
     }
 
-    private static List<Statement> createStatementList(LexicalRootBlock block) {
+    private static List<Statement> createStatementList(LexicalMultiBlock block) {
 
         List<Statement> statementList = new ArrayList<Statement>();
 
@@ -31,34 +31,37 @@ public class StatementStructure {
         int index = 0;
         while (index < block.children.size()) {
 
-            // ステートメントを作成する
-            Statement statement = createStatement(block.children.get(index));
-            // ステートメントを追加する
-            statementList.add(statement);
+            LexicalBlock lexicalBlock = block.children.get(index);
 
-            index++;
-        }
+            if (lexicalBlock instanceof LexicalSingleBlock == false) {
+                throw new RuntimeException("想定外のブロックです。:" + lexicalBlock.toString());
+            }
 
-        return statementList;
-    }
-
-    private static Statement createStatement(LexicalBlock lexicalBlock) {
-
-        if(lexicalBlock instanceof LexicalSingleBlock){
             LexicalSingleBlock singleBlock = (LexicalSingleBlock)lexicalBlock;
             // import文
             if (singleBlock.get(0).value.equals("import")) {
-                return new ImportStatement(singleBlock);
+                statementList.add(new ImportStatement(singleBlock));
+                index++;
             }
             // package文
-            if (singleBlock.get(0).value.equals("package")) {
-                return new PackageStatement(singleBlock);
+            else if (singleBlock.get(0).value.equals("package")) {
+                statementList.add(new PackageStatement(singleBlock));
+                index++;
             }
-            return new unknownStatement(singleBlock);
+            // class文
+            else if (singleBlock.contains(new Lexical(Lexical.TYPE.IDENTIFIER, "class"))) {
+                statementList.add(new ClassStatement(singleBlock, block.children.get(index + 1)));
+                index += 2;
+            }
+            // それ以外
+            else {
+                statementList.add(new unknownStatement(singleBlock));
+                index++;
+            }
+
+            
         }
-        else{
-            LexicalMultiBlock multiBlock = (LexicalMultiBlock)lexicalBlock;
-            return createStatement(multiBlock.children.get(0));
-        }
+
+        return statementList;
     }
 }

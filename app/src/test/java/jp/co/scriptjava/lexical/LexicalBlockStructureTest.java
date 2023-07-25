@@ -12,7 +12,7 @@ public class LexicalBlockStructureTest {
     void 括弧なし基本パターン() {
         List<Lexical> lexicals = LexicalStructure.structure("a+b;c+d;");   
         
-        LexicalRootBlock block = LexicalBlockStructure.structure(lexicals);
+        LexicalMultiBlock block = LexicalBlockStructure.structure(lexicals);
         assertEquals(2, block.children.size());
         assertEquals(new LexicalSingleBlock(LexicalStructure.structure("a+b;")), block.children.get(0));
         assertEquals(new LexicalSingleBlock(LexicalStructure.structure("c+d;")), block.children.get(1));
@@ -22,7 +22,7 @@ public class LexicalBlockStructureTest {
     void 括弧あり基本パターン() {
         List<Lexical> lexicals = LexicalStructure.structure("a+b;{c+d;}e+f;");   
         
-        LexicalRootBlock block = LexicalBlockStructure.structure(lexicals);
+        LexicalMultiBlock block = LexicalBlockStructure.structure(lexicals);
         assertEquals(3, block.children.size());
         assertEquals(new LexicalSingleBlock(LexicalStructure.structure("a+b;")), block.children.get(0));
 

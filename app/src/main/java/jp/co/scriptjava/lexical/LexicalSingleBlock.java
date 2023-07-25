@@ -33,6 +33,15 @@ public class LexicalSingleBlock extends LexicalBlock{
         return lexicals.subList(i, j);
     }
 
+    /**
+     * 対象の字句を含んでいるかどうかを判定する
+     * @param lexical
+     * @return
+     */
+    public boolean contains(Lexical lexical) {
+        return lexicals.contains(lexical);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof LexicalSingleBlock){

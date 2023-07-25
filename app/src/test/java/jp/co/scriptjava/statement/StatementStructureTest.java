@@ -1,27 +1,48 @@
 package jp.co.scriptjava.statement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import jp.co.scriptjava.lexical.Lexical;
-import jp.co.scriptjava.lexical.LexicalSingleBlock;
-import jp.co.scriptjava.lexical.LexicalRootBlock;
+import jp.co.scriptjava.lexical.LexicalBlockStructure;
+import jp.co.scriptjava.lexical.LexicalMultiBlock;
+import jp.co.scriptjava.lexical.LexicalStructure;
 
 public class StatementStructureTest {
     @Test
-    void 識別子とセミコロン() {
-        List<Lexical> lexicalList = new ArrayList<Lexical>();
-        lexicalList.add(new Lexical(Lexical.TYPE.IDENTIFIER, "a"));
-        lexicalList.add(new Lexical(Lexical.TYPE.SEPARATOR, ";"));
+    void importのテスト() {        
+        List<Lexical> lexicals = LexicalStructure.structure("import java.util.List;");
+        LexicalMultiBlock block = LexicalBlockStructure.structure(lexicals);
 
-        LexicalRootBlock block = new LexicalRootBlock(List.of(new LexicalSingleBlock(lexicalList)));
-        
         List<Statement> statementList = StatementStructure.structure(block);
 
-        assertEquals("[a, ;]", statementList.get(0).toString());
+        assertEquals(1, statementList.size());
+        assertTrue(statementList.get(0) instanceof ImportStatement);
+    }
+
+    @Test
+    void packageのテスト() {        
+        List<Lexical> lexicals = LexicalStructure.structure("package jp.co.scriptjava.statement;");
+        LexicalMultiBlock block = LexicalBlockStructure.structure(lexicals);
+
+        List<Statement> statementList = StatementStructure.structure(block);
+
+        assertEquals(1, statementList.size());
+        assertTrue(statementList.get(0) instanceof PackageStatement);
+    }
+
+    @Test
+    void classのテスト(){
+        List<Lexical> lexicals = LexicalStructure.structure("public class StatementStructureTest { }");
+        LexicalMultiBlock block = LexicalBlockStructure.structure(lexicals);
+
+        List<Statement> statementList = StatementStructure.structure(block);
+
+        assertEquals(1, statementList.size());
+        assertTrue(statementList.get(0) instanceof ClassStatement);
     }
 }

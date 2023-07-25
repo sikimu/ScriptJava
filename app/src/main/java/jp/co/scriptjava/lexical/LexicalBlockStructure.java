@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class LexicalBlockStructure {
 
-    public static LexicalRootBlock structure(List<Lexical> list){
+    public static LexicalMultiBlock structure(List<Lexical> list){
 
         // コメント以外をステートメントリストに変換する
         List<Lexical> lexicals = removeComment(list);
@@ -17,7 +17,7 @@ public class LexicalBlockStructure {
         // ブロックを作る
         List<LexicalBlock> blocks = structure(lexicals, 0);
 
-        return new LexicalRootBlock(blocks); 
+        return new LexicalMultiBlock(blocks); 
     }
 
     // ブロックを作る

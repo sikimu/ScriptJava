@@ -1,8 +1,9 @@
-package jp.co.scriptjava.lexical;
+package jp.co.scriptjava.block;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.co.scriptjava.lexical.Lexical;
 
 /**
  * 字句を構造的にブロック化したものを作る

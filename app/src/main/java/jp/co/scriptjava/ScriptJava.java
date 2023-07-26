@@ -4,9 +4,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.co.scriptjava.block.LexicalBlockStructure;
+import jp.co.scriptjava.block.LexicalMultiBlock;
 import jp.co.scriptjava.lexical.Lexical;
-import jp.co.scriptjava.lexical.LexicalBlockStructure;
-import jp.co.scriptjava.lexical.LexicalMultiBlock;
 import jp.co.scriptjava.lexical.LexicalStructure;
 import jp.co.scriptjava.statement.Statement;
 import jp.co.scriptjava.statement.StatementStructure;

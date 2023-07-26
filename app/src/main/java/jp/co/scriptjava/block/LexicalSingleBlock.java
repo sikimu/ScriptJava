@@ -1,6 +1,8 @@
-package jp.co.scriptjava.lexical;
+package jp.co.scriptjava.block;
 
 import java.util.List;
+
+import jp.co.scriptjava.lexical.Lexical;
 
 /**
  * 字句リストをもつブロック

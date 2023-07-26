@@ -1,10 +1,13 @@
-package jp.co.scriptjava.lexical;
+package jp.co.scriptjava.block;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import jp.co.scriptjava.lexical.Lexical;
+import jp.co.scriptjava.lexical.LexicalStructure;
 
 public class LexicalBlockStructureTest {
 

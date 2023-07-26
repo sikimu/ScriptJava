@@ -3,10 +3,10 @@ package jp.co.scriptjava.statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.co.scriptjava.block.LexicalBlock;
+import jp.co.scriptjava.block.LexicalMultiBlock;
+import jp.co.scriptjava.block.LexicalSingleBlock;
 import jp.co.scriptjava.lexical.Lexical;
-import jp.co.scriptjava.lexical.LexicalBlock;
-import jp.co.scriptjava.lexical.LexicalMultiBlock;
-import jp.co.scriptjava.lexical.LexicalSingleBlock;
 
 public class StatementStructure {
     /**

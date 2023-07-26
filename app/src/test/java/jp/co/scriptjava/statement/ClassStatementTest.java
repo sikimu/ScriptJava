@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import jp.co.scriptjava.block.LexicalBlockStructure;
+import jp.co.scriptjava.block.LexicalMultiBlock;
+import jp.co.scriptjava.block.LexicalSingleBlock;
 import jp.co.scriptjava.lexical.Lexical;
-import jp.co.scriptjava.lexical.LexicalBlockStructure;
-import jp.co.scriptjava.lexical.LexicalMultiBlock;
-import jp.co.scriptjava.lexical.LexicalSingleBlock;
 import jp.co.scriptjava.lexical.LexicalStructure;
 
 public class ClassStatementTest {

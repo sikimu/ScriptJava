@@ -50,7 +50,8 @@ public class StatementStructure {
             }
             // class文
             else if (singleBlock.contains(new Lexical(Lexical.TYPE.IDENTIFIER, "class"))) {
-                statementList.add(new ClassStatement(singleBlock, block.children.get(index + 1)));
+                LexicalMultiBlock classBlock = (LexicalMultiBlock)block.children.get(index + 1);
+                statementList.add(new ClassStatement(singleBlock, classBlock));
                 index += 2;
             }
             // それ以外

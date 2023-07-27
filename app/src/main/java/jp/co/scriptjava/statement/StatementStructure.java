@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.co.scriptjava.block.Block;
-import jp.co.scriptjava.block.LexicalMultiBlock;
+import jp.co.scriptjava.block.MultiBlock;
 import jp.co.scriptjava.block.LexicalSingleBlock;
 import jp.co.scriptjava.lexical.Lexical;
 
@@ -15,7 +15,7 @@ public class StatementStructure {
      * @param source
      * @return
      */
-    public static List<Statement> structure(LexicalMultiBlock block) {
+    public static List<Statement> structure(MultiBlock block) {
 
         // ステートメントリストを作成する
         List<Statement> statementList = createStatementList(block);
@@ -23,7 +23,7 @@ public class StatementStructure {
         return statementList;
     }
 
-    private static List<Statement> createStatementList(LexicalMultiBlock block) {
+    private static List<Statement> createStatementList(MultiBlock block) {
 
         List<Statement> statementList = new ArrayList<Statement>();
 
@@ -46,7 +46,7 @@ public class StatementStructure {
             }
             // class文
             else if (singleBlock.contains(new Lexical(Lexical.TYPE.IDENTIFIER, "class"))) {
-                LexicalMultiBlock classBlock = (LexicalMultiBlock)block.children.get(index + 1);
+                MultiBlock classBlock = (MultiBlock)block.children.get(index + 1);
                 statementList.add(new ClassStatement(singleBlock, classBlock));
                 index += 2;
             }

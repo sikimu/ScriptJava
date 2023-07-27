@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.co.scriptjava.block.Block;
-import jp.co.scriptjava.block.LexicalMultiBlock;
+import jp.co.scriptjava.block.MultiBlock;
 import jp.co.scriptjava.block.LexicalSingleBlock;
 
 public class ClassStatement extends Statement{
@@ -19,7 +19,7 @@ public class ClassStatement extends Statement{
      */
     final public List<Statement> statementList;
     
-    public ClassStatement(LexicalSingleBlock definitionBlock, LexicalMultiBlock lexicalBlock) {
+    public ClassStatement(LexicalSingleBlock definitionBlock, MultiBlock lexicalBlock) {
 
         // クラス名を取得する
         className = definitionBlock.get(definitionBlock.size() -1).value;
@@ -28,7 +28,7 @@ public class ClassStatement extends Statement{
         statementList = createStatementList(lexicalBlock);
     }
 
-    private List<Statement> createStatementList(LexicalMultiBlock block) {
+    private List<Statement> createStatementList(MultiBlock block) {
         List<Statement> statementList = new ArrayList<Statement>();
 
         // ステートメントの最初の字句のインデックス
@@ -41,7 +41,7 @@ public class ClassStatement extends Statement{
             
             // メソッド
             if (singleBlock.get(singleBlock.size() - 1).value.equals(")")) {
-                LexicalMultiBlock methodBlock = (LexicalMultiBlock)block.children.get(index + 1);
+                MultiBlock methodBlock = (MultiBlock)block.children.get(index + 1);
                 statementList.add(new MethodStatement(singleBlock, methodBlock));
                 index += 2;
             }

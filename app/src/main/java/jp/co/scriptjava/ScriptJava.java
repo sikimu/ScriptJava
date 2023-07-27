@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.co.scriptjava.block.BlockStructure;
-import jp.co.scriptjava.block.LexicalMultiBlock;
+import jp.co.scriptjava.block.MultiBlock;
 import jp.co.scriptjava.lexical.Lexical;
 import jp.co.scriptjava.lexical.LexicalStructure;
 import jp.co.scriptjava.statement.Statement;
@@ -39,14 +39,14 @@ public class ScriptJava {
             }
 
             // 字句を構造的にブロック化したものを作る
-            List<LexicalMultiBlock> lexicalBlockList = new ArrayList<LexicalMultiBlock>();
+            List<MultiBlock> lexicalBlockList = new ArrayList<MultiBlock>();
             for (List<Lexical> lexicals : lexicalList) {
                 lexicalBlockList.add(BlockStructure.structure(lexicals));
             }
 
             // ステートメントリストに変換する
             List<List<Statement>> statementList = new ArrayList<List<Statement>>();
-            for (LexicalMultiBlock block : lexicalBlockList) {
+            for (MultiBlock block : lexicalBlockList) {
                 statementList.add(StatementStructure.structure(block));
             }
 

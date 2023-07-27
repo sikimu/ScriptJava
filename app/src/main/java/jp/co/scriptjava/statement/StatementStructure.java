@@ -33,10 +33,6 @@ public class StatementStructure {
 
             LexicalBlock lexicalBlock = block.children.get(index);
 
-            if (lexicalBlock instanceof LexicalSingleBlock == false) {
-                throw new RuntimeException("想定外のブロックです。:" + lexicalBlock.toString());
-            }
-
             LexicalSingleBlock singleBlock = (LexicalSingleBlock)lexicalBlock;
             // import文
             if (singleBlock.get(0).value.equals("import")) {
@@ -54,10 +50,8 @@ public class StatementStructure {
                 statementList.add(new ClassStatement(singleBlock, classBlock));
                 index += 2;
             }
-            // それ以外
             else {
-                statementList.add(new unknownStatement(singleBlock));
-                index++;
+                throw new RuntimeException("想定外のブロックです。:" + lexicalBlock.toString());
             }
 
             

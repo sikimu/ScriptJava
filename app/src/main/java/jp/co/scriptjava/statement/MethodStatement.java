@@ -15,46 +15,16 @@ public class MethodStatement extends Statement {
     final public String methodName;
 
     /**
-     * ステートメントリスト
+     * {}の中のステートメントリスト
      */
-    final public List<Statement> statementList;
+    final public CompoundStatement compound;
 
     public MethodStatement(LexicalSingleBlock definitionBlock, LexicalMultiBlock lexicalBlock) {
 
         // メソッド名を取得する
         methodName = definitionBlock.get(definitionBlock.size() - 1).value;
 
-        // ステートメントリストを作成する
-        statementList = createStatementList(lexicalBlock);
-    }
-
-    private List<Statement> createStatementList(LexicalMultiBlock block) {
-        List<Statement> statementList = new ArrayList<Statement>();
-
-        // ステートメントの最初の字句のインデックス
-        int index = 0;
-        while (index < block.children.size()) {
-
-            LexicalBlock lexicalBlock = block.children.get(index);
-
-            LexicalSingleBlock singleBlock = (LexicalSingleBlock)lexicalBlock;
-            
-            // 処理文
-            if (singleBlock.get(singleBlock.size() - 1).value.equals(";")) {
-                statementList.add(new ProcessStatement(singleBlock));
-                index++;
-            }
-            // while文
-            else if (singleBlock.get(0).value.equals("while")) {
-                LexicalBlock whileBlock = (LexicalBlock)block.children.get(index + 1);
-                statementList.add(new WhileStatement(singleBlock, whileBlock));
-                index += 2;
-            }
-            else {
-                throw new RuntimeException("想定外のブロックです。:" + lexicalBlock.toString());
-            }
-        }
-
-        return statementList;
+        // {}の中のステートメントリストを作成する
+        compound = new CompoundStatement(lexicalBlock);
     }
 }

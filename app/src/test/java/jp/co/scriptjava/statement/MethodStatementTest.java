@@ -26,7 +26,7 @@ public class MethodStatementTest {
 
         MethodStatement statement = new MethodStatement(definitionBlock, lexicalBlock);
 
-        assertTrue(statement.statementList.get(0) instanceof ProcessStatement);
+        assertTrue(statement.compound.statementList.get(0) instanceof ProcessStatement);
     }
 
     @Test
@@ -43,6 +43,6 @@ public class MethodStatementTest {
 
         MethodStatement statement = new MethodStatement(definitionBlock, lexicalBlock);
 
-        assertTrue(statement.statementList.get(0) instanceof WhileStatement);
+        assertTrue(statement.compound.statementList.get(0) instanceof WhileStatement);
     }
 }

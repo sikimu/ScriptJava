@@ -39,11 +39,10 @@ public class MethodStatement extends Statement {
 
             LexicalSingleBlock singleBlock = (LexicalSingleBlock)lexicalBlock;
             
-            // メソッド
-            if (singleBlock.get(singleBlock.size() - 1).value.equals(")")) {
-                LexicalMultiBlock methodBlock = (LexicalMultiBlock)block.children.get(index + 1);
-                statementList.add(new MethodStatement(singleBlock, methodBlock));
-                index += 2;
+            // 処理文
+            if (singleBlock.get(singleBlock.size() - 1).value.equals(";")) {
+                statementList.add(new ProcessStatement(singleBlock));
+                index++;
             }
             else {
                 throw new RuntimeException("想定外のブロックです。:" + lexicalBlock.toString());

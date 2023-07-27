@@ -37,10 +37,6 @@ public class ClassStatement extends Statement{
 
             LexicalBlock lexicalBlock = block.children.get(index);
 
-            if (lexicalBlock instanceof LexicalSingleBlock == false) {
-                throw new RuntimeException("想定外のブロックです。:" + lexicalBlock.toString());
-            }
-
             LexicalSingleBlock singleBlock = (LexicalSingleBlock)lexicalBlock;
             
             // メソッド

@@ -7,7 +7,7 @@ import jp.co.scriptjava.lexical.Lexical;
 /**
  * 字句リストをもつブロック
  */
-public class LexicalSingleBlock extends LexicalBlock{
+public class LexicalSingleBlock extends Block{
     
     /** 字句リスト */
     private final List<Lexical> lexicals;

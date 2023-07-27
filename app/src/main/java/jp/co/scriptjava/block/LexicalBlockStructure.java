@@ -16,14 +16,14 @@ public class LexicalBlockStructure {
         List<Lexical> lexicals = removeComment(list);
 
         // ブロックを作る
-        List<LexicalBlock> blocks = structure(lexicals, 0);
+        List<Block> blocks = structure(lexicals, 0);
 
         return new LexicalMultiBlock(blocks); 
     }
 
     // ブロックを作る
-    private static List<LexicalBlock> structure(List<Lexical> lexicals, int index) {
-        List<LexicalBlock> blocks = new ArrayList<LexicalBlock>();
+    private static List<Block> structure(List<Lexical> lexicals, int index) {
+        List<Block> blocks = new ArrayList<Block>();
 
         while(index < lexicals.size()){
             Lexical lexical = lexicals.get(index);

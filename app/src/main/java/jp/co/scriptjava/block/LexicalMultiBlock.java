@@ -5,13 +5,13 @@ import java.util.List;
 /**
  * 字句ブロックをもつブロック
  */
-public class LexicalMultiBlock extends LexicalBlock{
+public class LexicalMultiBlock extends Block{
  
     /** ブロックリスト */
-    public final List<LexicalBlock> children;
+    public final List<Block> children;
     
     /** コンストラクタ */
-    public LexicalMultiBlock(List<LexicalBlock> children) {
+    public LexicalMultiBlock(List<Block> children) {
         this.children = children;
     }
 }

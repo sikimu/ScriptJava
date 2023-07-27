@@ -3,7 +3,7 @@ package jp.co.scriptjava.statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.co.scriptjava.block.LexicalBlock;
+import jp.co.scriptjava.block.Block;
 import jp.co.scriptjava.block.LexicalMultiBlock;
 import jp.co.scriptjava.block.LexicalSingleBlock;
 
@@ -27,7 +27,7 @@ public class CompoundStatement extends Statement{
         int index = 0;
         while (index < block.children.size()) {
 
-            LexicalBlock lexicalBlock = block.children.get(index);
+            Block lexicalBlock = block.children.get(index);
 
             LexicalSingleBlock singleBlock = (LexicalSingleBlock)lexicalBlock;
             
@@ -38,7 +38,7 @@ public class CompoundStatement extends Statement{
             }
             // while文
             else if (singleBlock.get(0).value.equals("while")) {
-                LexicalBlock whileBlock = (LexicalBlock)block.children.get(index + 1);
+                Block whileBlock = (Block)block.children.get(index + 1);
                 statementList.add(new WhileStatement(singleBlock, whileBlock));
                 index += 2;
             }

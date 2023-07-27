@@ -44,6 +44,12 @@ public class MethodStatement extends Statement {
                 statementList.add(new ProcessStatement(singleBlock));
                 index++;
             }
+            // while文
+            else if (singleBlock.get(0).value.equals("while")) {
+                LexicalBlock whileBlock = (LexicalBlock)block.children.get(index + 1);
+                statementList.add(new WhileStatement(singleBlock, whileBlock));
+                index += 2;
+            }
             else {
                 throw new RuntimeException("想定外のブロックです。:" + lexicalBlock.toString());
             }

@@ -28,4 +28,21 @@ public class MethodStatementTest {
 
         assertTrue(statement.statementList.get(0) instanceof ProcessStatement);
     }
+
+    @Test
+    public void while文のみのメソッド(){
+        String source = "public void method1() {"
+                + "    while(true){"
+                + "        System.out.println(\"Hello World!\");"
+                + "    }"
+                + "}";
+        List<Lexical> lexicals = LexicalStructure.structure(source);
+        LexicalMultiBlock block = LexicalBlockStructure.structure(lexicals);
+        LexicalSingleBlock definitionBlock = (LexicalSingleBlock)block.children.get(0);
+        LexicalMultiBlock lexicalBlock = (LexicalMultiBlock)block.children.get(1);
+
+        MethodStatement statement = new MethodStatement(definitionBlock, lexicalBlock);
+
+        assertTrue(statement.statementList.get(0) instanceof WhileStatement);
+    }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import jp.co.scriptjava.block.LexicalBlockStructure;
+import jp.co.scriptjava.block.BlockStructure;
 import jp.co.scriptjava.block.LexicalMultiBlock;
 import jp.co.scriptjava.block.LexicalSingleBlock;
 import jp.co.scriptjava.lexical.Lexical;
@@ -20,7 +20,7 @@ public class MethodStatementTest {
                 + "    System.out.println(\"Hello World!\");"
                 + "}";
         List<Lexical> lexicals = LexicalStructure.structure(source);
-        LexicalMultiBlock block = LexicalBlockStructure.structure(lexicals);
+        LexicalMultiBlock block = BlockStructure.structure(lexicals);
         LexicalSingleBlock definitionBlock = (LexicalSingleBlock)block.children.get(0);
         LexicalMultiBlock lexicalBlock = (LexicalMultiBlock)block.children.get(1);
 
@@ -37,7 +37,7 @@ public class MethodStatementTest {
                 + "    }"
                 + "}";
         List<Lexical> lexicals = LexicalStructure.structure(source);
-        LexicalMultiBlock block = LexicalBlockStructure.structure(lexicals);
+        LexicalMultiBlock block = BlockStructure.structure(lexicals);
         LexicalSingleBlock definitionBlock = (LexicalSingleBlock)block.children.get(0);
         LexicalMultiBlock lexicalBlock = (LexicalMultiBlock)block.children.get(1);
 

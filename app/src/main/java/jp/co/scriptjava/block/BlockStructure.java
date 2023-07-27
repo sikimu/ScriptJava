@@ -8,7 +8,7 @@ import jp.co.scriptjava.lexical.Lexical;
 /**
  * 字句を構造的にブロック化したものを作る
  */
-public class LexicalBlockStructure {
+public class BlockStructure {
 
     public static LexicalMultiBlock structure(List<Lexical> list){
 

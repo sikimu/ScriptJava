@@ -7,13 +7,13 @@ import jp.co.scriptjava.lexical.Lexical;
 /**
  * 字句リストをもつブロック
  */
-public class LexicalSingleBlock extends Block{
+public class SingleBlock extends Block{
     
     /** 字句リスト */
     private final List<Lexical> lexicals;
 
     /** コンストラクタ */
-    public LexicalSingleBlock(List<Lexical> lexicals) {
+    public SingleBlock(List<Lexical> lexicals) {
         this.lexicals = lexicals;
     }
 
@@ -46,8 +46,8 @@ public class LexicalSingleBlock extends Block{
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof LexicalSingleBlock){
-            return lexicals.equals(((LexicalSingleBlock)obj).lexicals);
+        if(obj instanceof SingleBlock){
+            return lexicals.equals(((SingleBlock)obj).lexicals);
         }
         return false;
     }

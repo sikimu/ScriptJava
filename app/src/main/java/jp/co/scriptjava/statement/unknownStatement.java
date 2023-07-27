@@ -1,11 +1,11 @@
 package jp.co.scriptjava.statement;
 
-import jp.co.scriptjava.block.LexicalSingleBlock;
+import jp.co.scriptjava.block.SingleBlock;
 
 public class unknownStatement extends Statement{
-    LexicalSingleBlock lexicalSingleBlock;
+    SingleBlock lexicalSingleBlock;
     
-    public unknownStatement(LexicalSingleBlock lexicalSingleBlock) {
+    public unknownStatement(SingleBlock lexicalSingleBlock) {
         this.lexicalSingleBlock = lexicalSingleBlock;
     }
 

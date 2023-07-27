@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import jp.co.scriptjava.block.BlockStructure;
 import jp.co.scriptjava.block.MultiBlock;
-import jp.co.scriptjava.block.LexicalSingleBlock;
+import jp.co.scriptjava.block.SingleBlock;
 import jp.co.scriptjava.lexical.Lexical;
 import jp.co.scriptjava.lexical.LexicalStructure;
 
@@ -19,7 +19,7 @@ public class ClassStatementTest {
     void 空classのテスト(){
         List<Lexical> lexicals = LexicalStructure.structure("public class StatementStructureTest { }");
         MultiBlock block = BlockStructure.structure(lexicals);
-        LexicalSingleBlock definitionBlock = (LexicalSingleBlock)block.children.get(0);
+        SingleBlock definitionBlock = (SingleBlock)block.children.get(0);
         MultiBlock lexicalBlock = (MultiBlock)block.children.get(1);
 
         ClassStatement statement = new ClassStatement(definitionBlock, lexicalBlock);
@@ -32,7 +32,7 @@ public class ClassStatementTest {
     void メソッド入りのテスト(){
         List<Lexical> lexicals = LexicalStructure.structure("public class StatementStructureTest { public void test(){} }");
         MultiBlock block = BlockStructure.structure(lexicals);
-        LexicalSingleBlock definitionBlock = (LexicalSingleBlock)block.children.get(0);
+        SingleBlock definitionBlock = (SingleBlock)block.children.get(0);
         MultiBlock lexicalBlock = (MultiBlock)block.children.get(1);
 
         ClassStatement statement = new ClassStatement(definitionBlock, lexicalBlock);

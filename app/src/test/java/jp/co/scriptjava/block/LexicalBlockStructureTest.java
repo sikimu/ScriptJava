@@ -17,8 +17,8 @@ public class LexicalBlockStructureTest {
         
         MultiBlock block = BlockStructure.structure(lexicals);
         assertEquals(2, block.children.size());
-        assertEquals(new LexicalSingleBlock(LexicalStructure.structure("a+b;")), block.children.get(0));
-        assertEquals(new LexicalSingleBlock(LexicalStructure.structure("c+d;")), block.children.get(1));
+        assertEquals(new SingleBlock(LexicalStructure.structure("a+b;")), block.children.get(0));
+        assertEquals(new SingleBlock(LexicalStructure.structure("c+d;")), block.children.get(1));
     }
 
     @Test
@@ -27,14 +27,14 @@ public class LexicalBlockStructureTest {
         
         MultiBlock block = BlockStructure.structure(lexicals);
         assertEquals(3, block.children.size());
-        assertEquals(new LexicalSingleBlock(LexicalStructure.structure("a+b;")), block.children.get(0));
+        assertEquals(new SingleBlock(LexicalStructure.structure("a+b;")), block.children.get(0));
 
         MultiBlock multiBlock = (MultiBlock)block.children.get(1);
         assertEquals(1, multiBlock.children.size());
-        assertEquals(new LexicalSingleBlock(LexicalStructure.structure("c+d;")), multiBlock.children.get(0));
+        assertEquals(new SingleBlock(LexicalStructure.structure("c+d;")), multiBlock.children.get(0));
 
 
-        assertEquals(new LexicalSingleBlock(LexicalStructure.structure("e+f;")), block.children.get(2));
+        assertEquals(new SingleBlock(LexicalStructure.structure("e+f;")), block.children.get(2));
     }
 
 }

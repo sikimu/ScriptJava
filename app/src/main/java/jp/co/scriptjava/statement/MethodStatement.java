@@ -1,7 +1,7 @@
 package jp.co.scriptjava.statement;
 
 import jp.co.scriptjava.block.MultiBlock;
-import jp.co.scriptjava.block.LexicalSingleBlock;
+import jp.co.scriptjava.block.SingleBlock;
 
 public class MethodStatement extends Statement {
 
@@ -15,7 +15,7 @@ public class MethodStatement extends Statement {
      */
     final public CompoundStatement compound;
 
-    public MethodStatement(LexicalSingleBlock definitionBlock, MultiBlock lexicalBlock) {
+    public MethodStatement(SingleBlock definitionBlock, MultiBlock lexicalBlock) {
 
         // メソッド名を取得する
         methodName = definitionBlock.get(definitionBlock.size() - 1).value;

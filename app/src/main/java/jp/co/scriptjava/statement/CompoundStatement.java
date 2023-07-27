@@ -5,7 +5,7 @@ import java.util.List;
 
 import jp.co.scriptjava.block.Block;
 import jp.co.scriptjava.block.MultiBlock;
-import jp.co.scriptjava.block.LexicalSingleBlock;
+import jp.co.scriptjava.block.SingleBlock;
 
 public class CompoundStatement extends Statement{
 
@@ -29,7 +29,7 @@ public class CompoundStatement extends Statement{
 
             Block lexicalBlock = block.children.get(index);
 
-            LexicalSingleBlock singleBlock = (LexicalSingleBlock)lexicalBlock;
+            SingleBlock singleBlock = (SingleBlock)lexicalBlock;
             
             // 処理文
             if (singleBlock.get(singleBlock.size() - 1).value.equals(";")) {

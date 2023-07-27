@@ -5,7 +5,7 @@ import java.util.List;
 
 import jp.co.scriptjava.block.Block;
 import jp.co.scriptjava.block.MultiBlock;
-import jp.co.scriptjava.block.LexicalSingleBlock;
+import jp.co.scriptjava.block.SingleBlock;
 import jp.co.scriptjava.lexical.Lexical;
 
 public class StatementStructure {
@@ -33,7 +33,7 @@ public class StatementStructure {
 
             Block lexicalBlock = block.children.get(index);
 
-            LexicalSingleBlock singleBlock = (LexicalSingleBlock)lexicalBlock;
+            SingleBlock singleBlock = (SingleBlock)lexicalBlock;
             // import文
             if (singleBlock.get(0).value.equals("import")) {
                 statementList.add(new ImportStatement(singleBlock));

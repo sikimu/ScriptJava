@@ -1,12 +1,12 @@
 package jp.co.scriptjava.statement;
 
-import jp.co.scriptjava.block.LexicalSingleBlock;
+import jp.co.scriptjava.block.SingleBlock;
 
 public class PackageStatement extends Statement{
 
     final public String packageName;
 
-    public PackageStatement(LexicalSingleBlock lexicalSingleBlock) {
+    public PackageStatement(SingleBlock lexicalSingleBlock) {
 
         //package文の構文チェック
         if (lexicalSingleBlock.get(0).value.equals("package") == false) {

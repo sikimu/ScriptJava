@@ -1,6 +1,6 @@
 package jp.co.scriptjava.statement;
 
-import jp.co.scriptjava.block.LexicalSingleBlock;
+import jp.co.scriptjava.block.SingleBlock;
 
 public class ProcessStatement extends Statement{
 
@@ -9,7 +9,7 @@ public class ProcessStatement extends Statement{
      */
     final public String process;
 
-    public ProcessStatement(LexicalSingleBlock singleBlock) {
+    public ProcessStatement(SingleBlock singleBlock) {
         this.process = singleBlock.toString();
     }
 }

@@ -33,7 +33,7 @@ public class BlockStructure {
 
                 if (end == -1) {
                     // }がない場合は、最後までをブロック化する
-                    blocks.add(new LexicalSingleBlock(lexicals.subList(index, lexicals.size())));
+                    blocks.add(new SingleBlock(lexicals.subList(index, lexicals.size())));
                     break;
                 } else {
                     // }がある場合は、}までをブロック化する
@@ -46,11 +46,11 @@ public class BlockStructure {
 
                 if (end == -1) {
                     // セミコロンがない場合は、最後までをブロック化する
-                    blocks.add(new LexicalSingleBlock(lexicals.subList(index, lexicals.size())));
+                    blocks.add(new SingleBlock(lexicals.subList(index, lexicals.size())));
                     break;
                 } else {
                     // セミコロンがある場合は、セミコロンまでをブロック化する
-                    blocks.add(new LexicalSingleBlock(lexicals.subList(index, end + 1)));
+                    blocks.add(new SingleBlock(lexicals.subList(index, end + 1)));
                     index = end + 1;
                 }
             }

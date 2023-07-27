@@ -5,7 +5,7 @@ import java.util.List;
 
 import jp.co.scriptjava.block.Block;
 import jp.co.scriptjava.block.MultiBlock;
-import jp.co.scriptjava.block.LexicalSingleBlock;
+import jp.co.scriptjava.block.SingleBlock;
 
 public class ClassStatement extends Statement{
 
@@ -19,7 +19,7 @@ public class ClassStatement extends Statement{
      */
     final public List<Statement> statementList;
     
-    public ClassStatement(LexicalSingleBlock definitionBlock, MultiBlock lexicalBlock) {
+    public ClassStatement(SingleBlock definitionBlock, MultiBlock lexicalBlock) {
 
         // クラス名を取得する
         className = definitionBlock.get(definitionBlock.size() -1).value;
@@ -37,7 +37,7 @@ public class ClassStatement extends Statement{
 
             Block lexicalBlock = block.children.get(index);
 
-            LexicalSingleBlock singleBlock = (LexicalSingleBlock)lexicalBlock;
+            SingleBlock singleBlock = (SingleBlock)lexicalBlock;
             
             // メソッド
             if (singleBlock.get(singleBlock.size() - 1).value.equals(")")) {

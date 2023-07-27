@@ -1,7 +1,7 @@
 package jp.co.scriptjava.statement;
 
 import jp.co.scriptjava.block.Block;
-import jp.co.scriptjava.block.LexicalSingleBlock;
+import jp.co.scriptjava.block.SingleBlock;
 
 public class WhileStatement extends Statement{
 
@@ -10,7 +10,7 @@ public class WhileStatement extends Statement{
      */
     final public String condition;
 
-    public WhileStatement(LexicalSingleBlock singleBlock, Block whileBlock) {
+    public WhileStatement(SingleBlock singleBlock, Block whileBlock) {
         this.condition = singleBlock.toString();
     }
 }

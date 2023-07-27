@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import jp.co.scriptjava.block.BlockStructure;
 import jp.co.scriptjava.block.MultiBlock;
-import jp.co.scriptjava.block.LexicalSingleBlock;
+import jp.co.scriptjava.block.SingleBlock;
 import jp.co.scriptjava.lexical.Lexical;
 import jp.co.scriptjava.lexical.LexicalStructure;
 
@@ -21,7 +21,7 @@ public class MethodStatementTest {
                 + "}";
         List<Lexical> lexicals = LexicalStructure.structure(source);
         MultiBlock block = BlockStructure.structure(lexicals);
-        LexicalSingleBlock definitionBlock = (LexicalSingleBlock)block.children.get(0);
+        SingleBlock definitionBlock = (SingleBlock)block.children.get(0);
         MultiBlock lexicalBlock = (MultiBlock)block.children.get(1);
 
         MethodStatement statement = new MethodStatement(definitionBlock, lexicalBlock);
@@ -38,7 +38,7 @@ public class MethodStatementTest {
                 + "}";
         List<Lexical> lexicals = LexicalStructure.structure(source);
         MultiBlock block = BlockStructure.structure(lexicals);
-        LexicalSingleBlock definitionBlock = (LexicalSingleBlock)block.children.get(0);
+        SingleBlock definitionBlock = (SingleBlock)block.children.get(0);
         MultiBlock lexicalBlock = (MultiBlock)block.children.get(1);
 
         MethodStatement statement = new MethodStatement(definitionBlock, lexicalBlock);

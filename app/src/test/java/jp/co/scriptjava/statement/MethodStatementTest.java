@@ -62,4 +62,21 @@ public class MethodStatementTest {
 
         assertTrue(statement.compound.statementList.get(0) instanceof ForStatement);
     }
+
+    @Test
+    public void if文のみのメソッド(){
+        String source = "public void method1() {"
+                + "    if(true){"
+                + "        System.out.println(\"Hello World!\");"
+                + "    }"
+                + "}";
+        List<Lexical> lexicals = LexicalStructure.structure(source);
+        MultiBlock block = BlockStructure.structure(lexicals);
+        SingleBlock definitionBlock = (SingleBlock)block.children.get(0);
+        MultiBlock lexicalBlock = (MultiBlock)block.children.get(1);
+
+        MethodStatement statement = new MethodStatement(definitionBlock, lexicalBlock);
+
+        assertTrue(statement.compound.statementList.get(0) instanceof IfStatement);
+    }
 }

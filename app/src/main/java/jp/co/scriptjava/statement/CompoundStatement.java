@@ -48,6 +48,12 @@ public class CompoundStatement extends Statement{
                 statementList.add(new ForStatement(singleBlock, forBlock));
                 index += 2;
             }
+            // if文
+            else if (singleBlock.get(0).value.equals("if")) {
+                Block ifBlock = (Block)block.children.get(index + 1);
+                statementList.add(new IfStatement(singleBlock, ifBlock));
+                index += 2;
+            }
             else {
                 throw new RuntimeException("想定外のブロックです。:" + lexicalBlock.toString());
             }

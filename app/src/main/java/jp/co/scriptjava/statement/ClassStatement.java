@@ -45,6 +45,11 @@ public class ClassStatement extends Statement{
                 statementList.add(new MethodStatement(singleBlock, methodBlock));
                 index += 2;
             }
+            // 処理文
+            else if (singleBlock.get(singleBlock.size() - 1).value.equals(";")) {
+                statementList.add(new ProcessStatement(singleBlock));
+                index++;
+            }            
             else {
                 throw new RuntimeException("想定外のブロックです。:" + lexicalBlock.toString());
             }

@@ -18,7 +18,7 @@ public class MethodStatement extends Statement {
     public MethodStatement(SingleBlock definitionBlock, MultiBlock lexicalBlock) {
 
         // メソッド名を取得する
-        methodName = definitionBlock.get(definitionBlock.size() - 1).value;
+        methodName = definitionBlock.get(definitionBlock.indexof("(") - 1).value;
 
         // {}の中のステートメントリストを作成する
         compound = new CompoundStatement(lexicalBlock);

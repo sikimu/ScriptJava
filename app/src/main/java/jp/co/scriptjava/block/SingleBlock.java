@@ -51,4 +51,15 @@ public class SingleBlock extends Block{
         }
         return false;
     }
+
+    public int indexof(String value) {
+
+        for(int i = 0; i < lexicals.size(); i++){
+            if(lexicals.get(i).value.equals(value)){
+                return i;
+            }
+        }
+
+        return -1;
+    }
 }

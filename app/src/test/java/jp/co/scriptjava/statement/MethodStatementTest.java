@@ -1,5 +1,6 @@
 package jp.co.scriptjava.statement;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -78,5 +79,24 @@ public class MethodStatementTest {
         MethodStatement statement = new MethodStatement(definitionBlock, lexicalBlock);
 
         assertTrue(statement.compound.statementList.get(0) instanceof IfStatement);
+    }
+
+    @Test 
+    void 戻り値のスローが含まれるテスト(){
+        String source = "public void method1() throws Exception {"
+                + "    if(true){"
+                + "        System.out.println(\"Hello World!\");"
+                + "    }"
+                + "}";
+        List<Lexical> lexicals = LexicalStructure.structure(source);
+        MultiBlock block = BlockStructure.structure(lexicals);
+        SingleBlock definitionBlock = (SingleBlock)block.children.get(0);
+        MultiBlock lexicalBlock = (MultiBlock)block.children.get(1);
+
+        //エラーが発生しなければOK
+        MethodStatement statement = new MethodStatement(definitionBlock, lexicalBlock);
+
+        assertEquals("method1", statement.methodName);
+
     }
 }

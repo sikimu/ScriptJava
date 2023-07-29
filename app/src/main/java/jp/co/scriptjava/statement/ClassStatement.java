@@ -39,16 +39,15 @@ public class ClassStatement extends Statement{
 
             SingleBlock singleBlock = (SingleBlock)lexicalBlock;
             
-            // メソッド
-            if (singleBlock.get(singleBlock.size() - 1).value.equals(")")) {
-                MultiBlock methodBlock = (MultiBlock)block.children.get(index + 1);
-                statementList.add(new MethodStatement(singleBlock, methodBlock));
-                index += 2;
-            }
             // 処理文
-            else if (singleBlock.get(singleBlock.size() - 1).value.equals(";")) {
+            if (singleBlock.get(singleBlock.size() - 1).value.equals(";")) {
                 statementList.add(new ProcessStatement(singleBlock));
                 index++;
+            }
+            // メソッド(次のブロックがMultiBlockの場合はメソッド)
+            else if (block.children.get(index + 1) instanceof MultiBlock) {
+                statementList.add(new MethodStatement(singleBlock, (MultiBlock) block.children.get(index + 1)));
+                index += 2;
             }            
             else {
                 throw new RuntimeException("想定外のブロックです。:" + lexicalBlock.toString());

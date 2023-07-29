@@ -45,4 +45,21 @@ public class MethodStatementTest {
 
         assertTrue(statement.compound.statementList.get(0) instanceof WhileStatement);
     }
+
+    @Test
+    public void for文のみのメソッド(){
+        String source = "public void method1() {"
+                + "    for(int i = 0; i < 10; i++){"
+                + "        System.out.println(\"Hello World!\");"
+                + "    }"
+                + "}";
+        List<Lexical> lexicals = LexicalStructure.structure(source);
+        MultiBlock block = BlockStructure.structure(lexicals);
+        SingleBlock definitionBlock = (SingleBlock)block.children.get(0);
+        MultiBlock lexicalBlock = (MultiBlock)block.children.get(1);
+
+        MethodStatement statement = new MethodStatement(definitionBlock, lexicalBlock);
+
+        assertTrue(statement.compound.statementList.get(0) instanceof ForStatement);
+    }
 }

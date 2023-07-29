@@ -58,6 +58,25 @@ public class BlockStructure {
 
         return blocks;
     }
+    // )までを探す
+    private static int findParenthesis(List<Lexical> lexicals, int index) {
+
+        int count = 0;
+
+        for (int i = index; i < lexicals.size(); i++) {
+            Lexical lexical = lexicals.get(i);
+            if (lexical.value.equals("(")) {
+                count++;
+            }
+            if (lexical.value.equals(")")) {
+                count--;
+                if(count == 0){
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
 
     // }までを探す
     private static int findBrace(List<Lexical> lexicals, int index) {
@@ -90,6 +109,13 @@ public class BlockStructure {
             Lexical lexical = lexicals.get(i);
             if (lexical.value.equals(";")) {
                 return i;
+            }
+            //(がある場合は、)までは含める
+            if(lexical.value.equals("(")) {
+                int end = findParenthesis(lexicals, i);
+                if(end != -1) {
+                    i = end;
+                }
             }
             if (lexical.value.equals("{")) {
                 return i - 1;// 括弧は含めいない

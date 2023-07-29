@@ -42,6 +42,12 @@ public class CompoundStatement extends Statement{
                 statementList.add(new WhileStatement(singleBlock, whileBlock));
                 index += 2;
             }
+            // for文
+            else if (singleBlock.get(0).value.equals("for")) {
+                Block forBlock = (Block)block.children.get(index + 1);
+                statementList.add(new ForStatement(singleBlock, forBlock));
+                index += 2;
+            }
             else {
                 throw new RuntimeException("想定外のブロックです。:" + lexicalBlock.toString());
             }

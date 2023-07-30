@@ -4,6 +4,13 @@ public class App {
 
     public static void main(String[] args) {
 
-        new ScriptJava("c:\\Users\\iihit\\java\\ScriptJava");
+        try{
+            ScriptJava script = ScriptJavaStructure.structure("c:\\Users\\iihit\\java\\ScriptJava");
+
+            script.toString();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

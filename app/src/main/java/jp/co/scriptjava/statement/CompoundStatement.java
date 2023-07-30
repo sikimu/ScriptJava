@@ -54,6 +54,24 @@ public class CompoundStatement extends Statement{
                 statementList.add(new IfStatement(singleBlock, ifBlock));
                 index += 2;
             }
+            // try文
+            else if (singleBlock.get(0).value.equals("try")) {
+                int end = index + 1;
+
+                //catch文がある場合は、catch文までをtry文のブロックとする         
+                while (end + 1 < block.children.size()) {
+                    SingleBlock endBlock = (SingleBlock)block.children.get(end + 1);
+                    if (endBlock.get(0).value.equals("catch")) {
+                        end += 2;
+                    }
+                    else {
+                        break;
+                    }
+                }
+
+                statementList.add(new TryStatement(block.children.subList(index, end + 1)));
+                index = end + 1;
+            }
             else {
                 throw new RuntimeException("想定外のブロックです。:" + lexicalBlock.toString());
             }

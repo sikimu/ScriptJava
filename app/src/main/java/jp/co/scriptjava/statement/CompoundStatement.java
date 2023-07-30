@@ -69,6 +69,14 @@ public class CompoundStatement extends Statement{
                     }
                 }
 
+                //finally文がある場合は、finally文までをtry文のブロックとする
+                if (end + 1 < block.children.size()) {
+                    SingleBlock endBlock = (SingleBlock)block.children.get(end + 1);
+                    if (endBlock.get(0).value.equals("finally")) {
+                        end += 2;
+                    }
+                }
+
                 statementList.add(new TryStatement(block.children.subList(index, end + 1)));
                 index = end + 1;
             }

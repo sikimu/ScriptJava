@@ -118,4 +118,25 @@ public class MethodStatementTest {
 
         assertTrue(statement.compound.statementList.get(0) instanceof TryStatement);
     }
+
+    @Test
+    void try_catch_finalyのテスト(){
+        String source = "public void method1() {"
+                + "    try{"
+                + "        System.out.println(\"Hello World!\");"
+                + "    }catch(Exception e){"
+                + "        System.out.println(\"Hello World!\");"
+                + "    }finally{"
+                + "        System.out.println(\"Hello World!\");"
+                + "    }"
+                + "}";
+        List<Lexical> lexicals = LexicalStructure.structure(source);
+        MultiBlock block = BlockStructure.structure(lexicals);
+        SingleBlock definitionBlock = (SingleBlock)block.children.get(0);
+        MultiBlock lexicalBlock = (MultiBlock)block.children.get(1);
+
+        MethodStatement statement = new MethodStatement(definitionBlock, lexicalBlock);
+
+        assertTrue(statement.compound.statementList.get(0) instanceof TryStatement);
+    }
 }

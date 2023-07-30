@@ -5,11 +5,12 @@ import jp.co.scriptjava.block.SingleBlock;
 public class ProcessStatement extends Statement{
 
     /**
-     * 処理文
+     * 処理文ブロック
      */
-    final public String process;
+    final public SingleBlock block;
 
-    public ProcessStatement(SingleBlock singleBlock) {
-        this.process = singleBlock.toString();
+    public ProcessStatement(SingleBlock block) {
+
+        this.block = block;
     }
 }

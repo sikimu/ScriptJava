@@ -41,4 +41,18 @@ public class ClassStatementTest {
         assertEquals(1, statement.statementList.size());
         assertTrue(statement.statementList.get(0) instanceof MethodStatement);
     }
+
+    @Test
+    void enum入りのテスト(){
+        List<Lexical> lexicals = LexicalStructure.structure("public class StatementStructureTest { public enum Test{} }");
+        MultiBlock block = BlockStructure.structure(lexicals);
+        SingleBlock definitionBlock = (SingleBlock)block.children.get(0);
+        MultiBlock lexicalBlock = (MultiBlock)block.children.get(1);
+
+        ClassStatement statement = new ClassStatement(definitionBlock, lexicalBlock);
+
+        assertEquals("StatementStructureTest", statement.className);
+        assertEquals(1, statement.statementList.size());
+        assertTrue(statement.statementList.get(0) instanceof EnumStatement);
+    }
 }

@@ -39,8 +39,13 @@ public class ClassStatement extends Statement{
 
             SingleBlock singleBlock = (SingleBlock)lexicalBlock;
             
+            // enum
+            if(singleBlock.get(0).value.equals("enum") || singleBlock.get(1).value.equals("enum")){
+                statementList.add(new EnumStatement(singleBlock, (MultiBlock) block.children.get(index + 1)));
+                index += 2;
+            }
             // 処理文
-            if (singleBlock.get(singleBlock.size() - 1).value.equals(";")) {
+            else if (singleBlock.get(singleBlock.size() - 1).value.equals(";")) {
                 statementList.add(new ProcessStatement(singleBlock));
                 index++;
             }

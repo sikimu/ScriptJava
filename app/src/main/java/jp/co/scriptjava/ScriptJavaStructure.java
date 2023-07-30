@@ -50,18 +50,6 @@ public class ScriptJavaStructure {
             statementList.add(StatementStructure.structure(block));
         }
 
-        // ステートメントを出力する
-        for (List<Statement> statements : statementList) {
-            for (Statement statement : statements) {
-                System.out.println(statement);
-            }
-        }
-
-        // コメントマップを出力する
-        for (CommentMap commentMap : commentMaps) {
-            System.out.println(commentMap);
-        }
-
-        return new ScriptJava();
+        return new ScriptJava(statementList, commentMaps);
     }
 }

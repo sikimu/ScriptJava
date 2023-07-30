@@ -20,33 +20,17 @@ public class ScriptJavaStructure {
                 .filter(file -> file.getName().endsWith(".java"))
                 .toList();
         
-        // ファイルの内容をリストに格納する
-        List<String> sourceList = new ArrayList<String>();
-        for (File file : list) {
-            sourceList.add(FileUtil.readFileToString(file));
-        }
-
-        // 字句リストに変換する
-        List<List<Lexical>> lexicalList = new ArrayList<List<Lexical>>();
-        for (String source : sourceList) {
-            lexicalList.add(LexicalStructure.structure(source));
-        }
-
-        // コメントマップを作成する
         List<CommentMap> commentMaps = new ArrayList<CommentMap>();
-        for (List<Lexical> lexicals : lexicalList) {
-            commentMaps.add(new CommentMap(lexicals));
-        }
-
-        // 字句を構造的にブロック化したものを作る
-        List<MultiBlock> lexicalBlockList = new ArrayList<MultiBlock>();
-        for (List<Lexical> lexicals : lexicalList) {
-            lexicalBlockList.add(BlockStructure.structure(lexicals));
-        }
-
-        // ステートメントリストに変換する
         List<List<Statement>> statementList = new ArrayList<List<Statement>>();
-        for (MultiBlock block : lexicalBlockList) {
+
+        for (File file : list) {
+            String str = FileUtil.readFileToString(file);
+            // 字句リストに変換する
+            List<Lexical> lexicals = LexicalStructure.structure(str);
+
+            commentMaps.add(new CommentMap(lexicals));
+
+            MultiBlock block = BlockStructure.structure(lexicals);
             statementList.add(StatementStructure.structure(block));
         }
 

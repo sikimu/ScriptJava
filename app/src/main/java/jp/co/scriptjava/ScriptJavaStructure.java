@@ -20,20 +20,22 @@ public class ScriptJavaStructure {
                 .filter(file -> file.getName().endsWith(".java"))
                 .toList();
         
-        List<CommentMap> commentMaps = new ArrayList<CommentMap>();
-        List<List<Statement>> statementList = new ArrayList<List<Statement>>();
+        List<SjSource> sjSourceList = new ArrayList<SjSource>();
 
         for (File file : list) {
+            
             String str = FileUtil.readFileToString(file);
+
             // 字句リストに変換する
             List<Lexical> lexicals = LexicalStructure.structure(str);
-
-            commentMaps.add(new CommentMap(lexicals));
-
             MultiBlock block = BlockStructure.structure(lexicals);
-            statementList.add(StatementStructure.structure(block));
+            
+            List<Statement> statements = StatementStructure.structure(block);
+            CommentMap commentMap = new CommentMap(lexicals);
+
+            sjSourceList.add(new SjSource(statements, commentMap));
         }
 
-        return new ScriptJava(statementList, commentMaps);
+        return new ScriptJava(sjSourceList);
     }
 }

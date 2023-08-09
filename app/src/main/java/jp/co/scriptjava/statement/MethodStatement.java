@@ -23,8 +23,4 @@ public class MethodStatement extends Statement {
         // {}の中のステートメントリストを作成する
         compound = new CompoundStatement(lexicalBlock);
     }
-
-    public Integer call() {
-        return 1;
-    }
 }

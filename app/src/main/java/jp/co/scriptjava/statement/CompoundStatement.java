@@ -30,7 +30,7 @@ public class CompoundStatement extends Statement{
             Block lexicalBlock = block.children.get(index);
 
             SingleBlock singleBlock = (SingleBlock)lexicalBlock;
-                        // return文
+            // return文
             if (singleBlock.get(0).value.equals("return")) {
                 statementList.add(new ReturnStatement(singleBlock));
                 index++;

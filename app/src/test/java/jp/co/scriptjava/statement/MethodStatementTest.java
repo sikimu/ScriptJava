@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import jp.co.scriptjava.MethodExecutor;
 import jp.co.scriptjava.block.BlockStructure;
 import jp.co.scriptjava.block.MultiBlock;
 import jp.co.scriptjava.block.SingleBlock;
@@ -167,6 +168,6 @@ public class MethodStatementTest {
 
         MethodStatement statement = new MethodStatement(definitionBlock, lexicalBlock);
 
-        assertEquals(1, statement.call());
+        assertEquals(1, MethodExecutor.call(statement));
     }
 }

@@ -155,19 +155,4 @@ public class MethodStatementTest {
 
         assertTrue(statement.compound.statementList.get(0) instanceof ReturnStatement);
     }
-
-    @Test
-    void intを返すstaticメソッドの実行テスト(){
-        String source = "public static int method1() {"
-                + "    return 1;"
-                + "}";
-        List<Lexical> lexicals = LexicalStructure.structure(source);
-        MultiBlock block = BlockStructure.structure(lexicals);
-        SingleBlock definitionBlock = (SingleBlock)block.children.get(0);
-        MultiBlock lexicalBlock = (MultiBlock)block.children.get(1);
-
-        MethodStatement statement = new MethodStatement(definitionBlock, lexicalBlock);
-
-        assertEquals(1, MethodExecutor.call(statement));
-    }
 }

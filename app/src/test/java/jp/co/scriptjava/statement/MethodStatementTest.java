@@ -96,7 +96,7 @@ public class MethodStatementTest {
         //エラーが発生しなければOK
         MethodStatement statement = new MethodStatement(definitionBlock, lexicalBlock);
 
-        assertEquals("method1", statement.methodName);
+        assertEquals("method1", statement.name);
 
     }
 

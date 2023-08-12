@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.co.scriptjava.block.Block;
-import jp.co.scriptjava.block.MultiBlock;
+import jp.co.scriptjava.block.BracesBlock;
 import jp.co.scriptjava.block.SingleBlock;
 
 public class ClassStatement extends Statement{
@@ -19,7 +19,7 @@ public class ClassStatement extends Statement{
      */
     final public List<Statement> statementList;
     
-    public ClassStatement(SingleBlock definitionBlock, MultiBlock lexicalBlock) {
+    public ClassStatement(SingleBlock definitionBlock, BracesBlock lexicalBlock) {
 
         // クラス名を取得する
         className = definitionBlock.get(definitionBlock.size() -1).value;
@@ -28,7 +28,7 @@ public class ClassStatement extends Statement{
         statementList = createStatementList(lexicalBlock);
     }
 
-    private List<Statement> createStatementList(MultiBlock block) {
+    private List<Statement> createStatementList(BracesBlock block) {
         List<Statement> statementList = new ArrayList<Statement>();
 
         // ステートメントの最初の字句のインデックス
@@ -41,7 +41,7 @@ public class ClassStatement extends Statement{
             
             // enum
             if(singleBlock.get(0).value.equals("enum") || singleBlock.get(1).value.equals("enum")){
-                statementList.add(new EnumStatement(singleBlock, (MultiBlock) block.children.get(index + 1)));
+                statementList.add(new EnumStatement(singleBlock, (BracesBlock) block.children.get(index + 1)));
                 index += 2;
             }
             // 処理文
@@ -50,8 +50,8 @@ public class ClassStatement extends Statement{
                 index++;
             }
             // メソッド(次のブロックがMultiBlockの場合はメソッド)
-            else if (block.children.get(index + 1) instanceof MultiBlock) {
-                statementList.add(new MethodStatement(singleBlock, (MultiBlock) block.children.get(index + 1)));
+            else if (block.children.get(index + 1) instanceof BracesBlock) {
+                statementList.add(new MethodStatement(singleBlock, (BracesBlock) block.children.get(index + 1)));
                 index += 2;
             }            
             else {

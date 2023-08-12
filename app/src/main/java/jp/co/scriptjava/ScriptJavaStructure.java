@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.co.scriptjava.block.BlockStructure;
-import jp.co.scriptjava.block.MultiBlock;
+import jp.co.scriptjava.block.BracesBlock;
 import jp.co.scriptjava.lexical.Lexical;
 import jp.co.scriptjava.lexical.LexicalStructure;
 import jp.co.scriptjava.statement.Statement;
@@ -28,7 +28,7 @@ public class ScriptJavaStructure {
 
             // 字句リストに変換する
             List<Lexical> lexicals = LexicalStructure.structure(str);
-            MultiBlock block = BlockStructure.structure(lexicals);
+            BracesBlock block = BlockStructure.structure(lexicals);
             
             List<Statement> statements = StatementStructure.structure(block);
             CommentMap commentMap = new CommentMap(lexicals);

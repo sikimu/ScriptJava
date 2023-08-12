@@ -2,7 +2,7 @@ package jp.co.scriptjava.statement;
 
 import java.util.List;
 
-import jp.co.scriptjava.block.MultiBlock;
+import jp.co.scriptjava.block.BracesBlock;
 import jp.co.scriptjava.block.SingleBlock;
 
 public class MethodStatement extends Statement {
@@ -27,7 +27,7 @@ public class MethodStatement extends Statement {
      */
     final public CompoundStatement compound;
 
-    public MethodStatement(SingleBlock definitionBlock, MultiBlock lexicalBlock) {
+    public MethodStatement(SingleBlock definitionBlock, BracesBlock lexicalBlock) {
 
         // メソッドの戻り値の型を取得する
         returnType = definitionBlock.get(definitionBlock.indexof("(") - 2).value;

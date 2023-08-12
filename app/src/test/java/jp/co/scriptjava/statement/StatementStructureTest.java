@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import jp.co.scriptjava.block.BlockStructure;
-import jp.co.scriptjava.block.MultiBlock;
+import jp.co.scriptjava.block.BracesBlock;
 import jp.co.scriptjava.lexical.Lexical;
 import jp.co.scriptjava.lexical.LexicalStructure;
 
@@ -16,7 +16,7 @@ public class StatementStructureTest {
     @Test
     void importのテスト() {        
         List<Lexical> lexicals = LexicalStructure.structure("import java.util.List;");
-        MultiBlock block = BlockStructure.structure(lexicals);
+        BracesBlock block = BlockStructure.structure(lexicals);
 
         List<Statement> statementList = StatementStructure.structure(block);
 
@@ -27,7 +27,7 @@ public class StatementStructureTest {
     @Test
     void packageのテスト() {        
         List<Lexical> lexicals = LexicalStructure.structure("package jp.co.scriptjava.statement;");
-        MultiBlock block = BlockStructure.structure(lexicals);
+        BracesBlock block = BlockStructure.structure(lexicals);
 
         List<Statement> statementList = StatementStructure.structure(block);
 
@@ -38,7 +38,7 @@ public class StatementStructureTest {
     @Test
     void classのテスト(){
         List<Lexical> lexicals = LexicalStructure.structure("public class StatementStructureTest { }");
-        MultiBlock block = BlockStructure.structure(lexicals);
+        BracesBlock block = BlockStructure.structure(lexicals);
 
         List<Statement> statementList = StatementStructure.structure(block);
 

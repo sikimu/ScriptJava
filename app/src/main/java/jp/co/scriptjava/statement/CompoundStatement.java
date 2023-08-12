@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.co.scriptjava.block.Block;
-import jp.co.scriptjava.block.MultiBlock;
+import jp.co.scriptjava.block.BracesBlock;
 import jp.co.scriptjava.block.SingleBlock;
 
 public class CompoundStatement extends Statement{
@@ -14,13 +14,13 @@ public class CompoundStatement extends Statement{
      */
     final public List<Statement> statementList;
 
-    public CompoundStatement(MultiBlock lexicalBlock) {
+    public CompoundStatement(BracesBlock lexicalBlock) {
 
         // ステートメントリストを作成する
         statementList = createStatementList(lexicalBlock);
     }
 
-    private List<Statement> createStatementList(MultiBlock block) {
+    private List<Statement> createStatementList(BracesBlock block) {
         List<Statement> statementList = new ArrayList<Statement>();
 
         // ステートメントの最初の字句のインデックス

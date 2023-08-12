@@ -3,15 +3,15 @@ package jp.co.scriptjava.block;
 import java.util.List;
 
 /**
- * 字句ブロックをもつブロック
+ * ()ブロックをもつブロック
  */
-public class MultiBlock extends Block{
+public class ParenthesesBlock extends Block{
  
     /** ブロックリスト */
     public final List<Block> children;
     
     /** コンストラクタ */
-    public MultiBlock(List<Block> children) {
+    public ParenthesesBlock(List<Block> children) {
         this.children = children;
     }
 }

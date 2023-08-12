@@ -10,7 +10,7 @@ import jp.co.scriptjava.lexical.Lexical;
  */
 public class BlockStructure {
 
-    public static MultiBlock structure(List<Lexical> list){
+    public static BracesBlock structure(List<Lexical> list){
 
         // コメント以外をステートメントリストに変換する
         List<Lexical> lexicals = removeComment(list);
@@ -18,7 +18,7 @@ public class BlockStructure {
         // ブロックを作る
         List<Block> blocks = structure(lexicals, 0);
 
-        return new MultiBlock(blocks); 
+        return new BracesBlock(blocks); 
     }
 
     // ブロックを作る
@@ -37,7 +37,20 @@ public class BlockStructure {
                     break;
                 } else {
                     // }がある場合は、}までをブロック化する
-                    blocks.add(new MultiBlock(structure(lexicals.subList(index + 1, end), 0)));
+                    blocks.add(new BracesBlock(structure(lexicals.subList(index + 1, end), 0)));
+                    index = end + 1;
+                }
+            }
+            else if(lexical.value.equals("(")){
+                int end = findParenthesis(lexicals, index);
+
+                if (end == -1) {
+                    // }がない場合は、最後までをブロック化する
+                    blocks.add(new SingleBlock(lexicals.subList(index, lexicals.size())));
+                    break;
+                } else {
+                    // }がある場合は、}までをブロック化する
+                    blocks.add(new ParenthesesBlock(structure(lexicals.subList(index + 1, end), 0)));
                     index = end + 1;
                 }
             }
